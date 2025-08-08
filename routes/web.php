@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Controllers\AuthController;
@@ -23,7 +24,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 });
 
 
-
+    Route::get('admin/dashboard',[AdminController::class,'index']);
 
 
 });
