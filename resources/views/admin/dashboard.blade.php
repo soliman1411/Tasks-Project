@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <!-- Completed Tasks -->
+        <!--  Tasks Count-->
         <div class="col-md-4">
             <div class="card text-white bg-success mb-3 shadow">
                 <div class="card-header">Total Tasks</div>
@@ -24,12 +24,21 @@
             </div>
         </div>
 
-        <!-- Incomplete Tasks -->
+        <!-- complete Tasks -->
         <div class="col-md-4">
             <div class="card text-white bg-danger mb-3 shadow">
                 <div class="card-header">Completed Tasks</div>
                 <div class="card-body">
                     <h5 class="card-title">{{ $completedTasks ?? 0}}</h5>
+                </div>
+            </div>
+        </div>
+        <!-- incomplete Tasks -->
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3 shadow">
+                <div class="card-header">Completed Tasks</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $inCompletedTasks ?? 0}}</h5>
                 </div>
             </div>
         </div>

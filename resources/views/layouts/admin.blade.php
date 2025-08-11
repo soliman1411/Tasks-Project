@@ -27,10 +27,11 @@
         <nav class="col-md-2 d-none d-md-block bg-dark text-white sidebar p-3">
             <h4>Admin</h4>
             <ul class="nav flex-column mt-4">
-                <li class="nav-item"><a class="nav-link text-white" href="">Users Manegment</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="{{ route('tasks.index') }}">Tasks Manegment</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('usersManegment.index') }}">Users Manegment</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('tasksManegment.index') }}">Tasks Manegment</a></li>
                 <li class="nav-item">
-                    <form action="{{ route('logout') }}" method="POST">@csrf
+                    <form action="{{ route('logout') }}" method="POST">
+                    @csrf
                         <button type="submit" class="nav-link btn btn-link text-white text-start">Logout</button>
                     </form>
                 </li>

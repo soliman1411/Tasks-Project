@@ -1,22 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mt-5">
-    <h2 class="mb-4 text-primary">All Tasks</h2>
+    <h2 class="mb-4 text-primary">All Users</h2>
 
     {{-- البحث وزر إنشاء مهمة جديدة --}}
-   <form action="{{ route('tasks.index') }}" method="get">
+   <form action="{{ route('users.index') }}" method="get">
     @csrf
      <div class="row mb-4">
         <div class="col-md-8 d-flex">
             <input type="text" name="search" id="search" value="{{ request()->search }}"
-                   class="form-control form-control-lg me-2" placeholder="🔍 Search tasks with title">
+                   class="form-control form-control-lg me-2" placeholder="🔍 Search users with name">
             <button type="submit" class="btn btn-primary btn-lg">Search</button>
         </div>
    </form>
         <div class="col-md-4 text-md-end mt-3 mt-md-0">
             <a href="{{ route('tasks.create') }}" class="btn btn-success btn-lg">
-                + Create New Task
+                + Create New User
             </a>
         </div>
     </div>
@@ -27,30 +27,24 @@
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Is_Done</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($tasks as $task)
+                @forelse($users as $user)
                     <tr>
-                        <td>{{ $task->id }}</td>
-                        <td>{{ $task->title }}</td>
-                        <td>{{ $task->description }}</td>
-                        <td>
-                            @if($task->is_done =="complete")
-                                <span class="badge bg-success">complete</span>
-                            @else
-                                <span class="badge bg-warning text-dark">incomplete</span>
-                            @endif
-                        </td>
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->password }}</td>
                         <td class="d-flex justify-content-center gap-2">
-                            <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-primary">
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
                                 Edit
                             </a>
-                            <form action="{{ route('tasks.destroy', $task->id) }}" method="POST"
+                            <form action="{{ route('users.destroy', $user->id) }}" method="POST"
                                   onsubmit="return confirm('Are you sure?')">
                                 @csrf
                                 @method('DELETE')
@@ -62,7 +56,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">No tasks found.</td>
+                        <td colspan="5">No Users found.</td>
                     </tr>
                 @endforelse
             </tbody>

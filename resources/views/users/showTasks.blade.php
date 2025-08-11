@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mt-5">
@@ -69,4 +69,5 @@
         </table>
     </div>
 </div>
+{{ $tasks->withQueryString()->links() }}
 @endsection

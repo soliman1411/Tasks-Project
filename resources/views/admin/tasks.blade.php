@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mt-5">
@@ -30,6 +30,7 @@
                     <th>Title</th>
                     <th>Description</th>
                     <th>Is_Done</th>
+                    <th>UserName</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -46,6 +47,7 @@
                                 <span class="badge bg-warning text-dark">incomplete</span>
                             @endif
                         </td>
+                        <td>{{ $task->users()->name }}</td>
                         <td class="d-flex justify-content-center gap-2">
                             <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-primary">
                                 Edit
@@ -62,7 +64,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">No tasks found.</td>
+                        <td colspan="6">No tasks found.</td>
                     </tr>
                 @endforelse
             </tbody>

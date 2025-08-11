@@ -3,28 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ToDoController extends Controller
+class TasksManegmentController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         if ($request->search) {
-        $tasks = Task::where('title','like','%'.$request->search.'%')
-        ->where('user_id', Auth::id())
-        ->paginate(10);
-
+        $tasks = Task::with('user')->where('title','like','%'.$request->search.'%')->paginate(10);
         } else {
 
-            $tasks = Task::where('user_id', Auth::id())->paginate(10);
+            $tasks = Task::with('user')->paginate(10);
         }
 
-        return view('tasks.index',compact('tasks'));
+        return view('tasksManegment.index',compact('tasks'));
 
     }
 
@@ -33,7 +29,7 @@ class ToDoController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        return view('tasksManegment.create');
     }
 
     /**
@@ -44,9 +40,6 @@ class ToDoController extends Controller
     $request->validate([
         'title' => 'required',
         'description' => 'required',
-    ], [
-        'title.required' => 'title is required',
-        'description.required' => 'description is required',
     ]);
 
   Auth::user()->tasks()->create([
@@ -55,21 +48,14 @@ class ToDoController extends Controller
     'is_done' => $request->is_done,
 ]);
 
-    return redirect()->route('tasks.index')->with('success', 'Task created.');
+    return redirect()->route('tasksManegment.index')->with('success', 'Task created.');
 }
 
-    /**
-     * Display the specified resource.
-     */
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
         public function edit($id)
         {
-            $task = Task::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-            return view('tasks.edit', compact('task'));
+            $task = Task::findOrFail($id);
+            return view('tasksManegment.edit', compact('task'));
         }
 
     /**
@@ -80,13 +66,9 @@ class ToDoController extends Controller
          $request->validate([
         'title'=>'required',
         'description'=>'required',
-        ],[
-        'title.required'=>'title is required',
-        'description.required'=>'description is required',
-
         ]);
 
-        $task = Task::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $task = Task::findOrFail($id);
 
         $task->update([
             'title'=>$request->title,
@@ -94,7 +76,7 @@ class ToDoController extends Controller
             'is_done'=>$request->is_done,
         ]);
 
-        return redirect()->route('tasks.index')->with('success','Task updated.');
+        return redirect()->route('tasksManegment.index')->with('success','Task updated.');
 
     }
 
@@ -103,9 +85,8 @@ class ToDoController extends Controller
      */
    public function destroy($id)
 {
-    $task = Task::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-    $task->delete();
+    $task = Task::destroy($id);
 
-    return redirect()->route('tasks.index')->with('success', 'Task deleted.');
+    return redirect()->route('tasksManegment.index')->with('success', 'Task deleted.');
 }
 }

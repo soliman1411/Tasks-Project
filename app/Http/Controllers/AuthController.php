@@ -51,6 +51,15 @@ class AuthController extends Controller
             return redirect()->intended(route('tasks.index'));
         }
 
+        if (Auth::check() && Auth::user()->is_admin) {
+         return redirect()->route('admin.dashboard');
+
+        }
+
+        return redirect()->route('tasks.index');
+
+
+
         return back()->withErrors(['email' => 'بيانات الدخول غير صحيحة'])->withInput();
     }
 
