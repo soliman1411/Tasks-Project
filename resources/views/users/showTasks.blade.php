@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2 class="mb-4 text-primary">All Tasks</h2>
+    <h2 class="mb-4 text-primary">All Tasks of {{ $user->name }}</h2>
 
     {{-- البحث وزر إنشاء مهمة جديدة --}}
-   <form action="{{ route('tasks.index') }}" method="get">
-    @csrf
+   <form action="{{ route('admin.showTasks', $user->id) }}" method="get">
+
      <div class="row mb-4">
         <div class="col-md-8 d-flex">
             <input type="text" name="search" id="search" value="{{ request()->search }}"
@@ -14,12 +14,7 @@
             <button type="submit" class="btn btn-primary btn-lg">Search</button>
         </div>
    </form>
-        <div class="col-md-4 text-md-end mt-3 mt-md-0">
-            <a href="{{ route('tasks.create') }}" class="btn btn-success btn-lg">
-                + Create New Task
-            </a>
-        </div>
-    </div>
+     
 
     {{-- جدول المهام --}}
     <div class="table-responsive">
@@ -30,7 +25,6 @@
                     <th>Title</th>
                     <th>Description</th>
                     <th>Is_Done</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,23 +40,11 @@
                                 <span class="badge bg-warning text-dark">incomplete</span>
                             @endif
                         </td>
-                        <td class="d-flex justify-content-center gap-2">
-                            <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-primary">
-                                Edit
-                            </a>
-                            <form action="{{ route('tasks.destroy', $task->id) }}" method="POST"
-                                  onsubmit="return confirm('Are you sure?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
+                       
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">No tasks found.</td>
+                        <td colspan="4">No tasks Of User.</td>
                     </tr>
                 @endforelse
             </tbody>

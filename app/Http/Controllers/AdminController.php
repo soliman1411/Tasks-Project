@@ -20,19 +20,19 @@ class AdminController extends Controller
         ,'completedTasks','inCompletedTasks'));
     }
 
-    function showTasks(Request $request) {
+    function showTasks(Request $request , User $user) {
 
       if ($request->search) {
-        $tasks = Task::where('title','like','%'.$request->search.'%')
-        ->where('user_id', Auth::id())
+        $tasks = $user->tasks()
+        ->where('title','like','%'.$request->search.'%')
         ->paginate(10);
 
         } else {
 
-            $tasks = Task::where('user_id', Auth::id())->paginate(10);
+            $tasks = $user->tasks()->paginate(10);
         }
 
-        return view('users.showTasks',compact('tasks'));
+        return view('users.showTasks',compact('user' ,'tasks'));
     }
 
 

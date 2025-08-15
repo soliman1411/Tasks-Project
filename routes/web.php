@@ -24,7 +24,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 Route::middleware([AuthMiddleware::class,Is_admin::class])->group(function () {
 
     Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
-    Route::get('/showTasks',[AdminController::class,'showTasks'])->name('admin.showTasks');
+    Route::get('/showTasks/{user}/tasks',[AdminController::class,'showTasks'])->name('admin.showTasks');
 
     // Route::get('/',function(){
     //     if (Auth::check() && Auth::user()->is_admin ==true) {

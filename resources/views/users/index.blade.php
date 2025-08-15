@@ -42,7 +42,7 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ Str::limit($user->password, 20) }}</td>
                         <td>
-                             <a href="{{ route('admin.showTasks') }}" class="btn btn-sm btn-primary">
+                             <a href="{{ route('admin.showTasks',$user->id) }}" class="btn btn-sm btn-primary">
                                 Show Tasks
                             </a>
                         </td>
