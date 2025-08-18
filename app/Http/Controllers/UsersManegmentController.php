@@ -59,4 +59,30 @@ class UsersManegmentController extends Controller
         User::destroy($id);
         return redirect()->route('usersManegment.index')->with('success','user deleted');
     }
+
+     public function trashed()
+{
+    $users = User::onlyTrashed()->get();
+    return view('users.trashed', compact('users'));
+}
+
+     public function restore($id)
+{
+    $user = User::withTrashed()->findOrFail($id);
+    $user->restore();
+
+    return redirect()->route('usersManegment.index')->with('success', 'User restored.');
+}
+
+     public function forceDelete($id)
+{
+    $User = User::withTrashed()->findOrFail($id);
+    $User->forceDelete();
+
+    return redirect()->route('usersManegment.index')->with('success', 'User force deleted.');
+}
+
+
+
+
 }

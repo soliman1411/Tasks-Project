@@ -16,7 +16,9 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware([AuthMiddleware::class])->group(function () {
-    Route::resource('tasks', TasksController::class);
+Route::resource('tasks', TasksController::class)->except(['show']);
+    Route::get('/tasks/trashed',[TasksController::class,'trashed'])->name('tasks.trashed');
+    Route::put('/tasks/{id}/restore',[TasksController::class,'restore'])->name('tasks.restore');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
@@ -24,19 +26,13 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 Route::middleware([AuthMiddleware::class,Is_admin::class])->group(function () {
 
     Route::get('/admin',[AdminController::class,'index'])->name('admin.dashboard');
-    Route::get('/showTasks/{user}/tasks',[AdminController::class,'showTasks'])->name('admin.showTasks');
-
-    // Route::get('/',function(){
-    //     if (Auth::check() && Auth::user()->is_admin ==true) {
-    //         return redirect()->route('admin.dashboard');
-
-    //     } else {
-    //         return redirect()->route('tasks.index');
-    //     }
-
-    //});
    Route::resource('usersManegment', UsersManegmentController::class);
+    Route::get('/users/trashed',[UsersManegmentController::class,'trashed'])->name('usersManegment.trashed');
+   Route::put('/users/{id}/restore',[UsersManegmentController::class,'restore'])->name('usersManegment.restore');
+    Route::delete('/users/{id}/forceDelete',[UsersManegmentController::class,'forceDelete'])->name('usersManegment.forceDelete');
    Route::resource('tasksManegment', TasksManegmentController::class);
+     Route::get('/tasks/{user}/showTasks',[AdminController::class,'showTasks'])->name('admin.showTasks');
+
 });
 
 

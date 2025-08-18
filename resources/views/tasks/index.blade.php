@@ -20,7 +20,9 @@
             </a>
         </div>
     </div>
-
+<a href="{{ route('tasks.trashed') }}" class="btn btn-success btn-lg">
+                                سلة المحذوفات
+                            </a>
     {{-- جدول المهام --}}
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle text-center">
@@ -69,4 +71,6 @@
         </table>
     </div>
 </div>
+
+
 @endsection

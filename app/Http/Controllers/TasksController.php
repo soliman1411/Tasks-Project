@@ -108,4 +108,17 @@ class TasksController extends Controller
 
     return redirect()->route('tasks.index')->with('success', 'Task deleted.');
 }
+   public function trashed()
+{
+    $tasks = Task::onlyTrashed()->get();
+    return view('tasks.trashed', compact('tasks'));
+}
+
+       public function restore($id)
+{
+    $task = Task::withTrashed()->findOrFail($id);
+    $task->restore();
+
+    return redirect()->route('tasks.index')->with('success', 'Task restored.');
+}
 }

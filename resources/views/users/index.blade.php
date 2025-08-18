@@ -4,6 +4,9 @@
 <div class="container mt-5">
     <h2 class="mb-4 text-primary">All Users</h2>
 
+ <a href="{{ route('usersManegment.trashed') }}" class="btn btn-success btn-lg">
+                                سلة المحذوفات
+                            </a>
     {{-- البحث وزر إنشاء مستخدم جديدة --}}
    <form action="{{ route('usersManegment.index') }}" method="get">
     @csrf

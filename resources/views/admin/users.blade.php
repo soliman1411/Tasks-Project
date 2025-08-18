@@ -4,6 +4,7 @@
 <div class="container mt-5">
     <h2 class="mb-4 text-primary">All Users</h2>
 
+
     {{-- البحث وزر إنشاء مهمة جديدة --}}
    <form action="{{ route('users.index') }}" method="get">
     @csrf
@@ -19,6 +20,7 @@
                 + Create New User
             </a>
         </div>
+
     </div>
 
     {{-- جدول المهام --}}
