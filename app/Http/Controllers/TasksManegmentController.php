@@ -92,7 +92,7 @@ class TasksManegmentController extends Controller
      public function trashed()
 {
     $tasks = Task::onlyTrashed()->get();
-    return view('tasks.trashed', compact('tasks'));
+    return view('tasksManegment.trashed', compact('tasks'));
 }
 
      public function restore($id)
@@ -100,7 +100,7 @@ class TasksManegmentController extends Controller
     $task = Task::withTrashed()->findOrFail($id);
     $task->restore();
 
-    return redirect()->route('tasks.index')->with('success', 'tasks restored.');
+    return redirect()->route('tasksManegment.index')->with('success', 'tasks restored.');
 }
 
      public function forceDelete($id)
@@ -108,7 +108,7 @@ class TasksManegmentController extends Controller
     $task = Task::withTrashed()->findOrFail($id);
     $task->forceDelete();
 
-    return redirect()->route('tasks.index')->with('success', 'tasks force deleted.');
+    return redirect()->route('tasksManegment.index')->with('success', 'tasks force deleted.');
 }
 
 }

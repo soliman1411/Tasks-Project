@@ -4,6 +4,10 @@
 <div class="container mt-5">
     <h2 class="mb-4 text-primary">All Tasks</h2>
 
+     <a href="{{ route('tasksManegment.trashed') }}" class="btn btn-success btn-lg">
+                                سلة المحذوفات
+                            </a>
+
     {{-- البحث وزر إنشاء مهمة جديدة --}}
    <form action="{{ route('tasksManegment.index') }}" method="get">
     @csrf

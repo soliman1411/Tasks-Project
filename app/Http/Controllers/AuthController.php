@@ -48,7 +48,6 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('tasks.index'));
         }
 
         if (Auth::check() && Auth::user()->is_admin) {

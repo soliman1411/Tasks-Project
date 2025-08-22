@@ -36,7 +36,7 @@
         <!-- incomplete Tasks -->
         <div class="col-md-4">
             <div class="card text-white bg-danger mb-3 shadow">
-                <div class="card-header">Completed Tasks</div>
+                <div class="card-header">InCompleted Tasks</div>
                 <div class="card-body">
                     <h5 class="card-title">{{ $inCompletedTasks ?? 0}}</h5>
                 </div>

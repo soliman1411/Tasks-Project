@@ -10,9 +10,11 @@ class UsersManegmentController extends Controller
 {
     public function index()  {
     if (request()->has('search')) {
-        $users  = User::where('name','like', '%'.request()->search.'%')->paginate(10);
+        $users  = User::where('name','like', '%'.request()->search.'%')
+        ->where('is_admin',false)
+        ->paginate(10);
     } else {
-        $users = User::paginate(10);
+        $users = User::where('is_admin',false)->paginate(10);
     }
     return view('users.index',compact('users'));
     }
