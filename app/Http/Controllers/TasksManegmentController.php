@@ -47,8 +47,8 @@ class TasksManegmentController extends Controller
     'description' => $request->description,
     'is_done' => $request->is_done,
 ]);
-
-    return redirect()->route('tasksManegment.index')->with('success', 'Task created.');
+    flash()->success('Task created.');
+    return redirect()->route('tasksManegment.index');
 }
 
 
@@ -75,8 +75,9 @@ class TasksManegmentController extends Controller
             'description'=>$request->description,
             'is_done'=>$request->is_done,
         ]);
+            flash()->success('Task updated.');
 
-        return redirect()->route('tasksManegment.index')->with('success','Task updated.');
+        return redirect()->route('tasksManegment.index');
 
     }
 
@@ -87,7 +88,9 @@ class TasksManegmentController extends Controller
 {
     $task = Task::destroy($id);
 
-    return redirect()->route('tasksManegment.index')->with('success', 'Task deleted.');
+    flash()->warning('Task updated.');
+
+    return redirect()->route('tasksManegment.index');
 }
      public function trashed()
 {
@@ -99,16 +102,18 @@ class TasksManegmentController extends Controller
 {
     $task = Task::withTrashed()->findOrFail($id);
     $task->restore();
+    flash()->info('Task restored.');
 
-    return redirect()->route('tasksManegment.index')->with('success', 'tasks restored.');
+    return redirect()->route('tasksManegment.index');
 }
 
      public function forceDelete($id)
 {
     $task = Task::withTrashed()->findOrFail($id);
     $task->forceDelete();
+    flash()->warning('Task deleted.');
 
-    return redirect()->route('tasksManegment.index')->with('success', 'tasks force deleted.');
+    return redirect()->route('tasksManegment.index');
 }
 
 }

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\UserCreatedTask;
+use App\Notifications\UserDeletedTask;
+use App\Notifications\UserUpdatedTask;
 
 class TasksController extends Controller
 {
@@ -23,6 +27,7 @@ class TasksController extends Controller
 
             $tasks = Task::where('user_id', Auth::id())->paginate(10);
         }
+
 
         return view('tasks.index',compact('tasks'));
 
@@ -49,13 +54,15 @@ class TasksController extends Controller
         'description.required' => 'description is required',
     ]);
 
-  Auth::user()->tasks()->create([
+  $task = Auth::user()->tasks()->create([
     'title' => $request->title,
     'description' => $request->description,
     'is_done' => $request->is_done,
 ]);
-
-    return redirect()->route('tasks.index')->with('success', 'Task created.');
+    $admin = User::where('is_admin',true)->first();
+    $admin->notify(new UserCreatedTask(Auth::user(),$task));
+            flash()->success('Task created.');
+    return redirect()->route('tasks.index');
 }
 
     /**
@@ -93,8 +100,10 @@ class TasksController extends Controller
             'description'=>$request->description,
             'is_done'=>$request->is_done,
         ]);
-
-        return redirect()->route('tasks.index')->with('success','Task updated.');
+        $admin = User::where('is_admin',true)->first();
+    $admin->notify(new UserUpdatedTask(Auth::user(),$task));
+            flash()->success('Task updated.');
+        return redirect()->route('tasks.index');
 
     }
 
@@ -106,7 +115,10 @@ class TasksController extends Controller
     $task = Task::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
     $task->delete();
 
-    return redirect()->route('tasks.index')->with('success', 'Task deleted.');
+    $admin = User::where('is_admin',true)->first();
+    $admin->notify(new UserDeletedTask(Auth::user(),$task));
+            flash()->warning('Task deleted.');
+    return redirect()->route('tasks.index');
 }
    public function trashed()
 {
@@ -118,7 +130,7 @@ class TasksController extends Controller
 {
     $task = Task::withTrashed()->findOrFail($id);
     $task->restore();
-
-    return redirect()->route('tasks.index')->with('success', 'Task restored.');
+            flash()->info('Task restored.');
+    return redirect()->route('tasks.index');
 }
 }

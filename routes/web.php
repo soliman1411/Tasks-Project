@@ -27,6 +27,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 // Admin Routes (requires login + admin role)
 Route::middleware([AuthMiddleware::class, Is_admin::class])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/AllNotifications', [AdminController::class, 'AllNotifications'])->name('admin.AllNotifications');
 
     // Users Management
     Route::resource('usersManegment', UsersManegmentController::class);

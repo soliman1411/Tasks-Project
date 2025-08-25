@@ -31,7 +31,6 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Password</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -41,7 +40,6 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->password }}</td>
                         <td class="d-flex justify-content-center gap-2">
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
                                 Edit
@@ -58,7 +56,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">No Users found.</td>
+                        <td colspan="4">No Users found.</td>
                     </tr>
                 @endforelse
             </tbody>

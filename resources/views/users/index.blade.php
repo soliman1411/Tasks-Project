@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
+
     <h2 class="mb-4 text-primary">All Users</h2>
 
  <a href="{{ route('usersManegment.trashed') }}" class="btn btn-success btn-lg">
@@ -32,7 +33,6 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Password</th>
                     <th>Tasks</th>
                     <th>Actions</th>
                 </tr>
@@ -43,7 +43,6 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ Str::limit($user->password, 20) }}</td>
                         <td>
                              <a href="{{ route('admin.showTasks',$user->id) }}" class="btn btn-sm btn-primary">
                                 Show Tasks
@@ -65,7 +64,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">No Users found.</td>
+                        <td colspan="5">No Users found.</td>
                     </tr>
                 @endforelse
             </tbody>

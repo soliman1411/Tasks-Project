@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     function index() {
-
         $usersCount = User::where('is_admin',false)->count();
         $tasksCount = Task::count();
         $completedTasks = Task::where('is_done','complete')->count();
@@ -35,7 +34,11 @@ class AdminController extends Controller
         return view('users.showTasks',compact('user' ,'tasks'));
     }
 
+    function AllNotifications() {
 
+        $notifications = Auth::user()->notifications()->latest()->get();
+        return view('admin.notification',compact('notifications'));
+    }
 
 }
 

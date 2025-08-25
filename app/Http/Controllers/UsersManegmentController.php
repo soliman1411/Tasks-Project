@@ -33,8 +33,8 @@ class UsersManegmentController extends Controller
 
 
         ]);
-
-        return redirect()->route('usersManegment.index')->with('success','user created');
+            flash()->success('user created.');
+        return redirect()->route('usersManegment.index');
 
     }
 
@@ -52,14 +52,15 @@ class UsersManegmentController extends Controller
 
         ]);
 
-
-            return redirect()->route('usersManegment.index')->with('success','user updated');
+            flash()->success('user updated.');
+            return redirect()->route('usersManegment.index');
 
     }
 
     public  function destroy($id)  {
         User::destroy($id);
-        return redirect()->route('usersManegment.index')->with('success','user deleted');
+            flash()->warning('user delete.');
+        return redirect()->route('usersManegment.index');
     }
 
      public function trashed()
@@ -72,16 +73,16 @@ class UsersManegmentController extends Controller
 {
     $user = User::withTrashed()->findOrFail($id);
     $user->restore();
-
-    return redirect()->route('usersManegment.index')->with('success', 'User restored.');
+            flash()->info('user restored.');
+    return redirect()->route('usersManegment.index');
 }
 
      public function forceDelete($id)
 {
     $User = User::withTrashed()->findOrFail($id);
     $User->forceDelete();
-
-    return redirect()->route('usersManegment.index')->with('success', 'User force deleted.');
+            flash()->warning('user forceDelete.');
+    return redirect()->route('usersManegment.index');
 }
 
 

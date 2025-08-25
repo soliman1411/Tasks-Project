@@ -9,7 +9,6 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>email</th>
-                <th>password</th>
                 <th>Deleted At</th>
                 <th>Actions</th>
             </tr>
@@ -20,7 +19,6 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->password }}</td>
                     <td>{{ $user->deleted_at->diffForHumans() }}</td>
                     <td>
                         {{-- استرجاع --}}
@@ -42,7 +40,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="6">No Deleted Users Found.</td></tr>
+                <tr><td colspan="5">No Deleted Users Found.</td></tr>
             @endforelse
         </tbody>
     </table>
