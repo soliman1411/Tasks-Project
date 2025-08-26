@@ -20,6 +20,10 @@
             </a>
         </div>
     </div>
+
+    <a href="{{ route('profile.show') }}" class="btn btn-success btn-lg">
+                                 MyProfile
+                            </a>
 <a href="{{ route('tasks.trashed') }}" class="btn btn-success btn-lg">
                                 سلة المحذوفات
                             </a>

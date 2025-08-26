@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\TasksManegmentController;
 use App\Http\Controllers\UsersManegmentController;
@@ -20,7 +21,8 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::resource('tasks', TasksController::class)->except(['show']);
     Route::get('/tasks/trashed', [TasksController::class, 'trashed'])->name('tasks.trashed');
     Route::put('/tasks/{id}/restore', [TasksController::class, 'restore'])->name('tasks.restore');
-
+    Route::get('/user/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::put('/user/profile/{id}/update', [ProfileController::class, 'update_profile'])->name('profile.update');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
