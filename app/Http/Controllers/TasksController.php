@@ -59,15 +59,13 @@ class TasksController extends Controller
     'description' => $request->description,
     'is_done' => $request->is_done,
 ]);
-    $admin = User::where('is_admin',true)->first();
+    $admin = User::findOrFail(1);
     $admin->notify(new UserCreatedTask(Auth::user(),$task));
             flash()->success('Task created.');
     return redirect()->route('tasks.index');
 }
 
-    /**
-     * Display the specified resource.
-     */
+    
 
 
     /**
@@ -87,10 +85,6 @@ class TasksController extends Controller
          $request->validate([
         'title'=>'required',
         'description'=>'required',
-        ],[
-        'title.required'=>'title is required',
-        'description.required'=>'description is required',
-
         ]);
 
         $task = Task::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
@@ -100,8 +94,9 @@ class TasksController extends Controller
             'description'=>$request->description,
             'is_done'=>$request->is_done,
         ]);
-        $admin = User::where('is_admin',true)->first();
-    $admin->notify(new UserUpdatedTask(Auth::user(),$task));
+    $admin = User::findOrFail(1);
+
+   $admin->notify(new UserUpdatedTask(Auth::user(),$task));
             flash()->success('Task updated.');
         return redirect()->route('tasks.index');
 
@@ -115,22 +110,22 @@ class TasksController extends Controller
     $task = Task::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
     $task->delete();
 
-    $admin = User::where('is_admin',true)->first();
+    $admin = User::findOrFail(1);
     $admin->notify(new UserDeletedTask(Auth::user(),$task));
             flash()->warning('Task deleted.');
     return redirect()->route('tasks.index');
 }
-   public function trashed()
-{
-    $tasks = Task::onlyTrashed()->get();
-    return view('tasks.trashed', compact('tasks'));
-}
+//    public function trashed()
+// {
+//     $tasks = Task::onlyTrashed()->get();
+//     return view('tasks.trashed', compact('tasks'));
+// }
 
-       public function restore($id)
-{
-    $task = Task::withTrashed()->findOrFail($id);
-    $task->restore();
-            flash()->info('Task restored.');
-    return redirect()->route('tasks.index');
-}
+//        public function restore($id)
+// {
+//     $task = Task::withTrashed()->findOrFail($id);
+//     $task->restore();
+//             flash()->info('Task restored.');
+//     return redirect()->route('tasks.index');
+// }
 }

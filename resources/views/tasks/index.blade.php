@@ -24,9 +24,9 @@
     <a href="{{ route('profile.show') }}" class="btn btn-success btn-lg">
                                  MyProfile
                             </a>
-<a href="{{ route('tasks.trashed') }}" class="btn btn-success btn-lg">
+{{-- <a href="{{ route('tasks.trashed') }}" class="btn btn-success btn-lg">
                                 سلة المحذوفات
-                            </a>
+                            </a> --}}
     {{-- جدول المهام --}}
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle text-center">

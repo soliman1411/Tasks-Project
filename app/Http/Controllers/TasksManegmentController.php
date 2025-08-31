@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +30,10 @@ class TasksManegmentController extends Controller
      */
     public function create()
     {
-        return view('tasksManegment.create');
+        $users = User::whereDoesntHave('roles', function ($q) {
+    $q->where('name', 'admin');
+})->get();
+        return view('tasksManegment.create',compact('users'));
     }
 
     /**
@@ -40,12 +44,14 @@ class TasksManegmentController extends Controller
     $request->validate([
         'title' => 'required',
         'description' => 'required',
+        'user_id' => 'required',
     ]);
 
-  Auth::user()->tasks()->create([
+  Task::create([
     'title' => $request->title,
     'description' => $request->description,
     'is_done' => $request->is_done,
+    'user_id' => $request->user_id,
 ]);
     flash()->success('Task created.');
     return redirect()->route('tasksManegment.index');
@@ -54,8 +60,11 @@ class TasksManegmentController extends Controller
 
         public function edit($id)
         {
+              $users = User::whereDoesntHave('roles', function ($q) {
+    $q->where('name', 'admin');
+})->get();
             $task = Task::findOrFail($id);
-            return view('tasksManegment.edit', compact('task'));
+            return view('tasksManegment.edit', compact('task','users'));
         }
 
     /**
@@ -74,6 +83,7 @@ class TasksManegmentController extends Controller
             'title'=>$request->title,
             'description'=>$request->description,
             'is_done'=>$request->is_done,
+            'user_id' => $request->user_id,
         ]);
             flash()->success('Task updated.');
 
@@ -88,7 +98,7 @@ class TasksManegmentController extends Controller
 {
     $task = Task::destroy($id);
 
-    flash()->warning('Task updated.');
+    flash()->warning('Task Deleted.');
 
     return redirect()->route('tasksManegment.index');
 }
@@ -111,7 +121,7 @@ class TasksManegmentController extends Controller
 {
     $task = Task::withTrashed()->findOrFail($id);
     $task->forceDelete();
-    flash()->warning('Task deleted.');
+    flash()->warning('Task forceDeleted.');
 
     return redirect()->route('tasksManegment.index');
 }

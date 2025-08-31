@@ -16,9 +16,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-       $this->call([
-        Taskseeder::class,
-        UserFactory::class,
-       ]);
+           $this->call(RolePermissionSeeder::class);
+
+           $admin = User::find(1);
+    if ($admin) {
+        $admin->assignRole('admin');
+    }
+
+       $moderator = User::find(2);
+    if ($moderator) {
+        $moderator->assignRole('moderator');
+    }
+
+
+
     }
 }

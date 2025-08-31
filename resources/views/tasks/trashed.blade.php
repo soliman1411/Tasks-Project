@@ -19,14 +19,14 @@
                     <td>{{ $task->title }}</td>
                     <td>{{ $task->deleted_at->diffForHumans() }}</td>
                     <td>
-                        {{-- استرجاع --}}
+                        {{-- استرجاع
                         <form action="{{ route('tasks.restore', $task->id) }}" method="POST"
                             onsubmit="return confirm('Are you sure restore?')"style="display:inline;">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-success btn-sm"
                              >Restore</button>
-                        </form>
+                        </form> --}}
 
 
                     </td>

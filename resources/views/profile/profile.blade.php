@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -27,14 +27,14 @@
         </div>
         <div class="mb-3">
             <label class="form-label">User Password </label>
-            <input type="password" name="password" class="form-control" value="{{ $user->password }}" >
+            <input type="password" name="password" class="form-control" >
 
         @error('password')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-success">Update</button>
+        <button type="submit" class="btn btn-success">Update Profile</button>
     </form>
 </div>
 @endsection

@@ -26,14 +26,33 @@
             @enderror
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Task Status</label>
-            <select name="is_done" class="form-select">
-                <option value="incomplete" @selected(old('is_done') == "incomplete")>InComplete</option>
-                <option value="complete" @selected(old('is_done') == "complete")>Complete</option>
-            </select>
-        </div>
+    {{-- الحالة --}}
+    <div class="mb-3">
+        <label class="form-label">Task Status</label>
+        <select name="is_done" class="form-select" required>
+            <option value="incomplete"
+                @selected(old('is_done', $task->is_done ?? '') == "incomplete")>
+                InComplete
+            </option>
+            <option value="complete"
+                @selected(old('is_done', $task->is_done ?? '') == "complete")>
+                Complete
+            </option>
+        </select>
+    </div>
 
+    {{-- المستخدم --}}
+    <div class="mb-3">
+        <label for="user_id">User Name</label>
+        <select name="user_id" class="form-control">
+            @foreach($users as $user)
+                <option value="{{ $user->id }}"
+                    @selected(old('user_id', $task->user_id ?? '') == $user->id)>
+                    {{ $user->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
         <button type="submit" class="btn btn-success">Update</button>
     </form>
 </div>
