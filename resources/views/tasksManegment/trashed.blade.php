@@ -2,15 +2,15 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2 class="mb-4 text-danger">Deleted Tasks</h2>
+    <h2 class="mb-4 text-danger"><th>{{ __('messages.deleteTask') }}</th></h2>
     <table class="table table-bordered text-center">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>{{ __('messages.id') }}</th>
                 <th>Title</th>
                 <th>User Name</th>
                 <th>Deleted At</th>
-                <th>Actions</th>
+                <th>{{ __('messages.actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -27,21 +27,22 @@
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-success btn-sm"
-                             >Restore</button>
+                             >{{ __('messages.restore') }}</button>
                         </form>
-
+                        @role('admin')
                         <form action="{{ route('tasksManegment.forceDelete', $task->id) }}" method="POST"
                             onsubmit="return confirm('Are you sure forceDelete?')"style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-success btn-sm"
-                             >ForceDelete</button>
+                             >{{ __('messages.forceDelete') }}</button>
                         </form>
+                        @endrole
 
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="5">No Deleted Tasks Found.</td></tr>
+                <tr><td colspan="5"></td></tr>
             @endforelse
         </tbody>
     </table>

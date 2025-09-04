@@ -54,6 +54,9 @@ class AuthController extends Controller
         if (Auth::user()->hasRole('admin')) {
             return redirect()->route('admin.dashboard');
         }
+        if (Auth::user()->hasRole('moderator')) {
+            return redirect()->route('tasksManegment.index');
+        }
         else{
         return redirect()->route('tasks.index');
 

@@ -3,11 +3,11 @@
 @section('content')
 <div class="container mt-5">
 
-    <h2 class="mb-4 text-primary">All Users</h2>
+    <h2 class="mb-4 text-primary">{{ __('messages.AllUsers') }}</h2>
 
  <a href="{{ route('usersManegment.trashed') }}" class="btn btn-success btn-lg">
-                                سلة المحذوفات
-                            </a>
+                        {{ __('messages.recycleBin') }}
+</a>
     {{-- البحث وزر إنشاء مستخدم جديدة --}}
    <form action="{{ route('usersManegment.index') }}" method="get">
     @csrf
@@ -15,12 +15,12 @@
         <div class="col-md-8 d-flex">
             <input type="text" name="search" id="search" value="{{ request()->search }}"
                    class="form-control form-control-lg me-2" placeholder="🔍 Search Users With Name">
-            <button type="submit" class="btn btn-primary btn-lg">Search</button>
+            <button type="submit" class="btn btn-primary btn-lg">{{ __('messages.search') }}</button>
         </div>
    </form>
         <div class="col-md-4 text-md-end mt-3 mt-md-0">
             <a href="{{ route('usersManegment.create') }}" class="btn btn-success btn-lg">
-                + Create New User
+                + {{ __('messages.CreateNewUser') }}
             </a>
         </div>
     </div>
@@ -30,11 +30,11 @@
         <table class="table table-bordered table-hover align-middle text-center">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Tasks</th>
-                    <th>Actions</th>
+                    <th>{{ __('messages.id') }}</th>
+                    <th>{{ __('messages.name') }}</th>
+                    <th>{{ __('messages.email') }}</th>
+                    <th>{{ __('messages.tasks') }}</th>
+                    <th>{{ __('messages.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,26 +45,26 @@
                         <td>{{ $user->email }}</td>
                         <td>
                              <a href="{{ route('admin.showTasks',$user->id) }}" class="btn btn-sm btn-primary">
-                                Show Tasks
+                                 {{ __('messages.ShowTasks') }}
                             </a>
                         </td>
                         <td class="d-flex justify-content-center gap-2">
                             <a href="{{ route('usersManegment.edit', $user->id) }}" class="btn btn-sm btn-primary">
-                                Edit
+                                {{ __('messages.edit') }}
                             </a>
                             <form action="{{ route('usersManegment.destroy', $user->id) }}" method="POST"
                                   onsubmit="return confirm('Are you sure?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">
-                                    Delete
+                                    {{ __('messages.delete') }}
                                 </button>
                             </form>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">No Users found.</td>
+                        <td colspan="5">{{ __('messages.NoUsersFound') }}.</td>
                     </tr>
                 @endforelse
             </tbody>

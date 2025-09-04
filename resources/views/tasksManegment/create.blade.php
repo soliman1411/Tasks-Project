@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2 class="mb-4">  Create New Task</h2>
+    <h2 class="mb-4">{{ __('messages.CreateNewTask') }}</h2>
     <form action="{{ route('tasksManegment.store') }}" method="POST">
         @csrf
         <div class="mb-3">
@@ -46,7 +46,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-success">Save</button>
+        <button type="submit" class="btn btn-success">{{ __('messages.save') }}</button>
     </form>
 </div>
 @endsection

@@ -65,6 +65,15 @@
                         <div class="avatar-circle me-2">{{ $initial }}</div>
                         <span class="text-dark">{{ $name }}</span>
                     </li>
+                    <ul>
+    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+        <li>
+            <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                {{ $properties['native'] }}
+            </a>
+        </li>
+    @endforeach
+</ul>
 
                     {{-- زر تسجيل الخروج --}}
                     <li class="nav-item ms-3">
@@ -77,7 +86,7 @@
                         </form>
                     </li>
                 @else
-                    <li class="nav-item"><a class="nav-link text-dark" href="{{ route('login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="{{ route('login.form') }}">Login</a></li>
                     <li class="nav-item"><a class="nav-link text-dark" href="{{ route('register') }}">Register</a></li>
                 @endauth
             </ul>

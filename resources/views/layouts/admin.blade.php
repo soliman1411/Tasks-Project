@@ -30,9 +30,17 @@
     <div class="row">
         <!-- Sidebar -->
         <nav class="col-md-2 d-none d-md-block bg-dark text-white sidebar p-3">
-            <h4>Admin</h4>
+             @role('admin')
+                <a style="text-decoration: none;  color: white;" href="{{ route('admin.dashboard') }}"><h5>Admin Dashboard</h5></a>
+                @endrole
+
+                  @role('moderator')
+            <h4>moderator</h4>
+                @endrole
             <ul class="nav flex-column mt-4">
+                @role('admin')
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('usersManegment.index') }}">Users Manegment</a></li>
+                @endrole
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('tasksManegment.index') }}">Tasks Manegment</a></li>
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST">

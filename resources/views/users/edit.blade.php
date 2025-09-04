@@ -34,7 +34,7 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-success">Update</button>
+        <button type="submit" class="btn btn-success">+ {{ __('messages.update') }}</button>
     </form>
 </div>
 @endsection
