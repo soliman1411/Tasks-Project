@@ -14,7 +14,7 @@
      <div class="row mb-4">
         <div class="col-md-8 d-flex">
             <input type="text" name="search" id="search" value="{{ request()->search }}"
-                   class="form-control form-control-lg me-2" placeholder="🔍 Search Users With Name">
+                   class="form-control form-control-lg me-2" placeholder="🔍 {{ __('messages.searchUsersWithName') }}">
             <button type="submit" class="btn btn-primary btn-lg">{{ __('messages.search') }}</button>
         </div>
    </form>

@@ -7,9 +7,9 @@
         <thead>
             <tr>
                 <th>{{ __('messages.id') }}</th>
-                <th>Title</th>
-                <th>User Name</th>
-                <th>Deleted At</th>
+                <th>{{ __('messages.taskTitle') }}</th>
+                <th>{{ __('messages.userName') }}</th>
+                <th>{{ __('messages.deleted_at') }}</th>
                 <th>{{ __('messages.actions') }}</th>
             </tr>
         </thead>

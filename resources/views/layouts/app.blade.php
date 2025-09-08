@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang ="{{ App::getLocale()}}"
+ dir ="{{ App::getLocale() =='ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <title>{{ $title ?? 'My App' }}</title>
@@ -66,20 +67,15 @@
                         <span class="text-dark">{{ $name }}</span>
                     </li>
                     <ul>
-    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-        <li>
-            <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                {{ $properties['native'] }}
-            </a>
-        </li>
-    @endforeach
+
 </ul>
+
 
                     {{-- زر تسجيل الخروج --}}
                     <li class="nav-item ms-3">
                         <a class="logout-btn nav-link" href="{{ route('logout') }}"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
+                            {{ __('messages.logout') }}
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
@@ -89,6 +85,24 @@
                     <li class="nav-item"><a class="nav-link text-dark" href="{{ route('login.form') }}">Login</a></li>
                     <li class="nav-item"><a class="nav-link text-dark" href="{{ route('register') }}">Register</a></li>
                 @endauth
+<div class="dropdown">
+    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ strtoupper(app()->getLocale()) }}
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+            <li>
+                <a class="dropdown-item"
+                   rel="alternate"
+                   hreflang="{{ $localeCode }}"
+                   href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    {{ $properties['native'] }}
+                </a>
+            </li>
+        @endforeach
+    </ul>
+</div>
+
             </ul>
         </div>
     </div>

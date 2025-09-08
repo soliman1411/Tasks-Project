@@ -3,13 +3,13 @@
 @section('content')
 <div class="container">
 
-    <h2 class="mb-4"> Updating Task</h2>
+    <h2 class="mb-4">{{ __('messages.taskUpdating') }}</h2>
     <form action="{{ route('tasksManegment.update', $task->id) }}" method="POST">
         @csrf
         @method('PUT')
 
         <div class="mb-3">
-            <label class="form-label">Task Title </label>
+            <label class="form-label">{{ __('messages.taskTitle') }}</label>
             <input type="text" name="title" class="form-control" value="{{ $task->title }}" >
 
         @error('title')
@@ -18,7 +18,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Task Description </label>
+            <label class="form-label">  {{ __('messages.taskDescription') }}</label>
 
             <textarea name="description" class="form-control" rows="4" >{{ $task->description }}</textarea>
             @error('description')
@@ -28,22 +28,22 @@
 
     {{-- الحالة --}}
     <div class="mb-3">
-        <label class="form-label">Task Status</label>
-        <select name="is_done" class="form-select" required>
+        <label class="form-label">{{ __('messages.taskStatus') }}</label>
+        <select name="is_done" class="form-select">
             <option value="incomplete"
                 @selected(old('is_done', $task->is_done ?? '') == "incomplete")>
-                InComplete
+                {{ __('messages.InComplete') }}
             </option>
             <option value="complete"
                 @selected(old('is_done', $task->is_done ?? '') == "complete")>
-                Complete
+                {{ __('messages.Complete') }}
             </option>
         </select>
     </div>
 
     {{-- المستخدم --}}
     <div class="mb-3">
-        <label for="user_id">User Name</label>
+        <label for="user_id">  {{ __('messages.name') }}</label>
         <select name="user_id" class="form-control">
             @foreach($users as $user)
                 <option value="{{ $user->id }}"

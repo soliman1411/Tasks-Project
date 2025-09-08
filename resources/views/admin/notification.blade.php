@@ -4,7 +4,7 @@
 <div class="container mt-4">
 
     <h3 class="mb-4 text-primary">
-        <i class="bi bi-bell"></i> All Notificaions
+        <i class="bi bi-bell"></i>{{ __('messages.notifications') }}
     </h3>
 
     <div class="card shadow-sm border-0 rounded-3">
@@ -21,7 +21,7 @@
                     <span class="badge bg-danger rounded-pill">{{$notification->created_at->diffForHumans() }}</span>
                 </li>
                 @empty
-                <span>No Notifications</span>
+                <span>{{ __('messages.noNotifications') }}</span>
                 @endforelse
 
             </ul>

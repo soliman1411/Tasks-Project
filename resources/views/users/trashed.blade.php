@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2 class="mb-4 text-danger">Deleted Users</h2>
+    <h2 class="mb-4 text-danger">{{ __('messages.deleteUser') }}</h2>
     <table class="table table-bordered text-center">
         <thead>
             <tr>

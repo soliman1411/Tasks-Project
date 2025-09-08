@@ -18,7 +18,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3"
                 aria-labelledby="notificationsDropdown" style="width: 320px; max-height: 350px; overflow-y: auto;">
-                <li class="dropdown-header fw-bold text-primary">🔔 Notifications</li>
+                <li class="dropdown-header fw-bold text-primary">🔔 {{ __('messages.notifications') }}</li>
                 <li><hr class="dropdown-divider"></li>
 
                 <!-- عناصر الإشعارات -->
@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 @empty
-                <span>No Notifications</span>
+                <span>{{ __('messages.noNotifications') }}</span>
                 @endforelse
 
                 <li><hr class="dropdown-divider"></li>
@@ -40,13 +40,13 @@
             </ul>
         </div>
     </div>
-    <h2 class="mb-4">Admin Dashboard</h2>
+    <h2 class="mb-4">{{ __('messages.adminDashboard') }}</h2>
 </nav>
     <div class="row">
         <!-- Users Count -->
         <div class="col-md-4">
             <div class="card text-white bg-primary mb-3 shadow">
-                <div class="card-header">Total Users</div>
+                <div class="card-header"> {{ __('messages.totalUsers') }}</div>
                 <div class="card-body">
                     <h5 class="card-title">{{ $usersCount ?? 0}}</h5>
                 </div>
@@ -56,7 +56,7 @@
         <!--  Tasks Count-->
         <div class="col-md-4">
             <div class="card text-white bg-success mb-3 shadow">
-                <div class="card-header">Total Tasks</div>
+                <div class="card-header"> {{ __('messages.TotalTasks') }}</div>
                 <div class="card-body">
                     <h5 class="card-title">{{ $tasksCount ?? 0}}</h5>
                 </div>
@@ -66,7 +66,7 @@
         <!-- complete Tasks -->
         <div class="col-md-4">
             <div class="card text-white bg-danger mb-3 shadow">
-                <div class="card-header">Completed Tasks</div>
+                <div class="card-header"> {{ __('messages.completedTasks') }}</div>
                 <div class="card-body">
                     <h5 class="card-title">{{ $completedTasks ?? 0}}</h5>
                 </div>
@@ -75,7 +75,7 @@
         <!-- incomplete Tasks -->
         <div class="col-md-4">
             <div class="card text-white bg-danger mb-3 shadow">
-                <div class="card-header">InCompleted Tasks</div>
+                <div class="card-header">{{ __('messages.inCompletedTasks') }} </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ $inCompletedTasks ?? 0}}</h5>
                 </div>

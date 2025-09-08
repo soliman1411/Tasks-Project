@@ -5,7 +5,7 @@
     <form action="{{ route('usersManegment.store') }}" method="POST">
         @csrf
        <div class="mb-3">
-    <label class="form-label">User Name</label>
+    <label class="form-label">{{ __('messages.userName') }}</label>
     <input type="text" name="name" class="form-control" value="{{ old('name')}}">
     @error('name')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -13,7 +13,7 @@
 </div>
 
 <div class="mb-3">
-    <label class="form-label">User Email</label>
+    <label class="form-label">{{ __('messages.email') }}</label>
     <input type="email" name="email" class="form-control" value="{{old('email')}}">
     @error('email')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -21,7 +21,7 @@
 </div>
 
 <div class="mb-3">
-    <label class="form-label">User Password</label>
+    <label class="form-label">{{ __('messages.password') }}</label>
     <input type="password" name="password" class="form-control">
     @error('password')
         <div class="alert alert-danger">{{ $message }}</div>

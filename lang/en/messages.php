@@ -2,6 +2,7 @@
 
 return [
     'login'        => 'Login',
+    'logout'        => 'logout',
     'register'     => 'Register',
     'save'         => 'Save',
     'update'       => 'Update',
@@ -9,6 +10,7 @@ return [
     'fullName'     => 'Full Name',
     'email'        => 'Email',
     'password'     => 'Password',
+    'passwordConfirmation' => 'Confirm Password',
     'id'           => 'ID',
     'name'         => 'Name',
     'tasks'        => 'Tasks',
@@ -28,12 +30,35 @@ return [
     'NoDeletedUsersFound' => 'No Deleted Users Found',
     'NoDeletedTasksFound' => 'No Deleted Tasks Found',
     'search' => 'search',
-    'title' => 'title',
-    'Is_Done' => 'Is_Done',
-    'description' => 'Description',
+    'is_Done' => 'Is_Done',
+    'taskDescription' => 'Task Description',
     'user' => 'User',
+    'userName' => 'User Name',
     'NoTasksFound' => 'No Tasks Found',
     'deleteTask' => ']elete Task',
     'AllTasks' => 'All Tasks',
+     'inComplete' => 'InComplete',
+    'complete' => 'Complete',
+    'taskStatus' => 'task Status',
+    'taskTitle' => 'task Title',
+    'taskUpdating' => 'task Updating',
+     'adminDashboard' => 'Admin Dashboard',
+    'usersManegment' => 'Users Manegment',
+    'tasksManegment' => 'Tasks Manegment',
+    'notifications' => 'Notifications',
+    'noNotifications' => 'No Notifications',
+    'TotalUsers' => 'Total Users',
+    'TotalTasks' => 'Total Tasks',
+    'CompletedTasks' => 'Completed Tasks',
+    'inCompletedTasks' => 'InCompleted Tasks',
+    'noUsersFound' => 'No Users Found',
+    'searchUsersWithName' => 'Search Users With Name',
+    'searchTasksWithTitle' => 'Search Tasks With Title',
+    'deleteUser'=> 'delete User',
+    'noTasksOfUser' => 'No tasks Of User',
 ];
+
+
+
+
 

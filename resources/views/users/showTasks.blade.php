@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2 class="mb-4 text-primary">All Tasks of {{ $user->name }}</h2>
+    <h2 class="mb-4 text-primary">{{ __('messages.AllTasks') }} {{ $user->name }}</h2>
 
     {{-- البحث وزر إنشاء مهمة جديدة --}}
    <form action="{{ route('admin.showTasks', $user->id) }}" method="get">
@@ -10,21 +10,21 @@
      <div class="row mb-4">
         <div class="col-md-8 d-flex">
             <input type="text" name="search" id="search" value="{{ request()->search }}"
-                   class="form-control form-control-lg me-2" placeholder="🔍 Search tasks with title">
-            <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                   class="form-control form-control-lg me-2" placeholder="🔍 {{ __('messages.searchTasksWithTitle') }}">
+            <button type="submit" class="btn btn-primary btn-lg">{{ __('messages.search') }}</button>
         </div>
    </form>
-     
+
 
     {{-- جدول المهام --}}
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle text-center">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Is_Done</th>
+                    <th>{{ __('messages.id') }}</th>
+                    <th>{{ __('messages.taskTitle') }}</th>
+                    <th>{{ __('messages.taskDescription') }}</th>
+                    <th>{{ __('messages.is_Done') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,16 +35,16 @@
                         <td>{{ $task->description }}</td>
                         <td>
                             @if($task->is_done =="complete")
-                                <span class="badge bg-success">complete</span>
+                                <span class="badge bg-success">{{ __('messages.complete') }}</span>
                             @else
-                                <span class="badge bg-warning text-dark">incomplete</span>
+                                <span class="badge bg-warning text-dark">{{ __('messages.inComplete') }}</span>
                             @endif
                         </td>
-                       
+
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">No tasks Of User.</td>
+                        <td colspan="4">.</td>
                     </tr>
                 @endforelse
             </tbody>

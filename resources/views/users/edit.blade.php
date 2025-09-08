@@ -9,7 +9,7 @@
         @method('PUT')
 
         <div class="mb-3">
-            <label class="form-label">User Name </label>
+            <label class="form-label">{{ __('messages.userName') }} </label>
             <input type="text" name="name" class="form-control" value="{{ $user->name }}" >
 
         @error('name')
@@ -18,7 +18,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">User Email </label>
+            <label class="form-label">{{ __('messages.email') }} </label>
             <input type="email" name="email" class="form-control" value="{{ $user->email }}" >
 
         @error('email')
@@ -26,7 +26,7 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label class="form-label">User Password </label>
+            <label class="form-label">{{ __('messages.password') }} </label>
             <input type="password" name="password" class="form-control" value="{{ $user->password }}" >
 
         @error('password')
