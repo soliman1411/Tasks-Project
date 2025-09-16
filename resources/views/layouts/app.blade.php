@@ -8,7 +8,12 @@
 
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+ {{-- CSS --}}
+    @if(app()->getLocale() == 'ar')
+        <link rel="stylesheet" href="{{ asset('css/app-ar.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('css/app-en.css') }}">
+    @endif
     <style>
         /* لون خلفية أفتح للنافبار */
         .navbar-custom {
@@ -82,8 +87,8 @@
                         </form>
                     </li>
                 @else
-                    <li class="nav-item"><a class="nav-link text-dark" href="{{ route('login.form') }}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="{{ route('register') }}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="{{ route('login.form') }}">{{ __('messages.login') }}</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="{{ route('register') }}">{{ __('messages.register') }}</a></li>
                 @endauth
 <div class="dropdown">
     <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

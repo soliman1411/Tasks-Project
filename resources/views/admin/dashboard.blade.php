@@ -56,7 +56,7 @@
         <!--  Tasks Count-->
         <div class="col-md-4">
             <div class="card text-white bg-success mb-3 shadow">
-                <div class="card-header"> {{ __('messages.TotalTasks') }}</div>
+                <div class="card-header"> {{ __('messages.totalTasks') }}</div>
                 <div class="card-body">
                     <h5 class="card-title">{{ $tasksCount ?? 0}}</h5>
                 </div>

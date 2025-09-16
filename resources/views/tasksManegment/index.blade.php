@@ -31,9 +31,9 @@
             <thead class="table-dark">
                 <tr>
                     <th>{{ __('messages.id') }}</th>
-                    <th>{{ __('messages.title') }}</th>
-                    <th>{{ __('messages.description') }}</th>
-                    <th>{{ __('messages.Is_Done') }}</th>
+                    <th>{{ __('messages.taskTitle') }}</th>
+                    <th>{{ __('messages.taskDescription') }}</th>
+                    <th>{{ __('messages.is_Done') }}</th>
                     <th>{{ __('messages.user') }}{{ __('messages.name') }}</th>
                     <th>{{ __('messages.actions') }}</th>
                 </tr>
@@ -46,9 +46,9 @@
                         <td>{{ $task->description }}</td>
                         <td>
                             @if($task->is_done =="complete")
-                                <span class="badge bg-success">complete</span>
+                                <span class="badge bg-success">{{ __('messages.complete') }}</span>
                             @else
-                                <span class="badge bg-warning text-dark">incomplete</span>
+                                <span class="badge bg-warning text-dark">{{ __('messages.inComplete') }}</span>
                             @endif
                         </td>
                         <td>{{$task->user->name}}</td>
