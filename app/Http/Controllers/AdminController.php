@@ -19,19 +19,28 @@ class AdminController extends Controller
         ,'completedTasks','inCompletedTasks'));
     }
 
-    function showTasks(Request $request , User $user) {
+
+
+
+
+
+
+
+
+    function showAllTasks(Request $request) {
 
       if ($request->search) {
-        $tasks = $user->tasks()
+        $tasks = Task::with('user')
         ->where('title','like','%'.$request->search.'%')
+        ->latest()
         ->paginate(10);
 
         } else {
 
-            $tasks = $user->tasks()->paginate(10);
+            $tasks = Task::with('user')->latest()->paginate(10);
         }
 
-        return view('users.showTasks',compact('user' ,'tasks'));
+        return view('users.showAllTasks',compact('tasks'));
     }
 
     function AllNotifications() {

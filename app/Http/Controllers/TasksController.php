@@ -49,9 +49,6 @@ class TasksController extends Controller
     $request->validate([
         'title' => 'required',
         'description' => 'required',
-    ], [
-        'title.required' => 'title is required',
-        'description.required' => 'description is required',
     ]);
 
   $task = Auth::user()->tasks()->create([
@@ -65,7 +62,7 @@ class TasksController extends Controller
     return redirect()->route('tasks.index');
 }
 
-    
+
 
 
     /**

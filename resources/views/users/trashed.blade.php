@@ -22,14 +22,14 @@
                     <td>{{ $user->deleted_at->diffForHumans() }}</td>
                     <td>
                         {{-- استرجاع --}}
-                        <form action="{{ route('usersManegment.restore', $user->id) }}" method="POST"
+                        <form action="{{ route('admin.usersManegment.restore', $user->id) }}" method="POST"
                             onsubmit="return confirm('Are you sure restore?')"style="display:inline;">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-success btn-sm"
                              >{{ __('messages.restore') }}</button>
                         </form>
-             <form action="{{ route('usersManegment.forceDelete', $user->id) }}" method="POST"
+             <form action="{{ route('admin.usersManegment.forceDelete', $user->id) }}" method="POST"
                             onsubmit="return confirm('Are you sure forceDelete?')"style="display:inline;">
                             @csrf
                             @method('DELETE')

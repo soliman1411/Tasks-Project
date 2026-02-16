@@ -5,6 +5,7 @@ return [
     'logout'        => 'تسجيل خروج',
     'register'     => ' تسجيل اشتراك',
     'save'         => 'حفظ',
+    'cancel'         => 'رجوع',
     'update'       => 'تحديث',
     'create'       => 'إنشاء',
     'fullName'     => 'الاسم الكامل',
@@ -22,12 +23,14 @@ return [
     'recycleBin'   => 'سلة المحذوفات',
     'CreateNewUser'=> 'إنشاء مستخدم جديد',
     'CreateNewTask'=> 'إنشاء مهمة جديدة',
-    'AllUsers'     => 'جميع المستخدمين',
+    'AllUsers'     => 'جميع المستخدمون',
     'ShowTasks'    => 'عرض المهام',
     'NoUsersFound' => 'لا يوجد مستخدمين',
     'search'       => 'بحث',
     'Profile'       => 'الملف الشخصي',
     'user' => 'المستخدم',
+    'AdminPanel' => 'لوحة التحكم',
+    'Dashboard' => 'الرئيسية',
     'userName' => 'اسم المستخدم',
     'is_Done' => 'هل مكتمل',
     'deleted_at' => 'تاريخ الحذف',
@@ -47,6 +50,7 @@ return [
     'usersManegment' => 'إدارة المستخدمين',
     'tasksManegment' => 'إدارة المهام',
     'notifications' => 'الاشعارات',
+    'Show All Notifications' => 'مشاهدة كل الإشعارات',
     'noNotifications' => 'لا يوجد اشعارات',
     'totalUsers' => 'العدد الكلي للمستخدمين',
     'totalTasks' => 'العدد الكلي للمهام',
@@ -56,10 +60,14 @@ return [
     'searchTasksWithTitle' => 'البحث من خلال اسم المهمة',
     'deleteUser' => 'قائمة المستخدمون المحذوفون',
     'noTasksOfUser' => 'لا يوجد مهام للمستخدم',
-
+    'TaskApp' => 'تطبيق المهام',
+    'RememberMy' => 'تذكرني',
+    'Dont have an account?' => 'ليس لديك حساب؟',
+    'Do you already have an account?' => 'لديك حساب بالفعل؟',
+    'Join us and start organizing your tasks with ease' => 'انضم إلينا وابدأ في تنظيم مهامك بكل سهولة',
+    'I agree to the terms and conditions' => 'أوافق على الشروط والأحكام',
+    'Welcome back! Please log in to your account.' => 'مرحباً بعودتك! يرجى تسجيل الدخول لحسابك
+',
 ];
-
-
-
 
 

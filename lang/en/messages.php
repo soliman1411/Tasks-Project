@@ -4,6 +4,7 @@ return [
     'login'        => 'Login',
     'logout'        => 'logout',
     'register'     => 'Register',
+    'cancel'        => 'Cancel',
     'save'         => 'Save',
     'update'       => 'Update',
     'create'       => 'Create',
@@ -25,11 +26,13 @@ return [
     'recycleBin'   => 'Recycle Bin',
     'AllUsers' => 'All Users',
     'ShowTasks' => 'Show Tasks',
+    'Dashboard' => 'Dashboard',
     'NoUsersFound' => 'No Users Found',
     'deleted_at' => 'deleted_at',
     'NoDeletedUsersFound' => 'No Deleted Users Found',
     'NoDeletedTasksFound' => 'No Deleted Tasks Found',
     'search' => 'search',
+    'AdminPanel' => 'AdminPanel',
     'is_Done' => 'Is_Done',
     'taskDescription' => 'Task Description',
     'user' => 'User',
@@ -47,6 +50,7 @@ return [
     'tasksManegment' => 'Tasks Manegment',
     'notifications' => 'Notifications',
     'noNotifications' => 'No Notifications',
+    'Show All Notifications' => 'Show All Notifications',
     'totalUsers' => 'Total Users',
     'totalTasks' => 'Total Tasks',
     'completedTasks' => 'Completed Tasks',
@@ -56,8 +60,15 @@ return [
     'searchTasksWithTitle' => 'Search Tasks With Title',
     'deleteUser'=> 'delete User',
     'noTasksOfUser' => 'No tasks Of User',
-];
+    'RememberMy' => 'ٌٌRemember My',
+    'TaskApp' => 'TaskApp',
+    'Dont have an account?' => 'Dont have an account?',
+    'Do you already have an account?' => 'Do you already have an account?',
+    'I agree to the terms and conditions' => 'I agree to the terms and conditions',
+    'Welcome back! Please log in to your account.' =>'Welcome back! Please log in to your account.',
+    'Join us and start organizing your tasks with ease' => 'Join us and start organizing your tasks with ease',
 
+];
 
 
 

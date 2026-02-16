@@ -23,12 +23,13 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-         $user = User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password), // تشفير كلمة المرور
+            'password' => bcrypt($request->password),
         ]);
-            $user->assignRole('user');
+
+        $user->assignRole('user');
 
         return redirect()->route('login.form')->with('success', 'تم التسجيل بنجاح، الرجاء تسجيل الدخول');
     }
@@ -40,34 +41,33 @@ class AuthController extends Controller
     }
 
     // معالجة تسجيل الدخول
-   public function login(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        // إذا المستخدم هو الأدمن (id=1)
-        if (Auth::user()->hasRole('admin')) {
-            return redirect()->route('admin.dashboard');
-        }
-        if (Auth::user()->hasRole('moderator')) {
-            return redirect()->route('tasksManegment.index');
-        }
-        else{
-        return redirect()->route('tasks.index');
+            $user = Auth::user();
 
+            if ($user->hasRole('admin')) {
+                return redirect()->route('admin.dashboard')->with('success', 'مرحباً بك في لوحة التحكم');
+            }
+
+            if ($user->hasRole('moderator')) {
+                return redirect()->route('tasksManegment.index')->with('success', 'مرحباً بك يا مشرف');
+            }
+
+            return redirect()->route('tasks.index')->with('success', 'مرحباً بك');
         }
+
+        return back()->withErrors([
+            'email' => 'بيانات الدخول غير صحيحة.',
+        ])->withInput();
     }
-
-    // لو فشل تسجيل الدخول
-    return back()->withErrors([
-        'email' => 'بيانات الدخول غير صحيحة.',
-    ])->withInput();
-}
 
     // تسجيل الخروج
     public function logout(Request $request)

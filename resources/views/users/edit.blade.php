@@ -4,7 +4,7 @@
 <div class="container">
 
     <h2 class="mb-4"> Updating User</h2>
-    <form action="{{ route('usersManegment.update', $user->id) }}" method="POST">
+    <form action="{{ route('admin.usersManegment.update', $user->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -27,7 +27,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">{{ __('messages.password') }} </label>
-            <input type="password" name="password" class="form-control" value="{{ $user->password }}" >
+            <input type="password" name="password" class="form-control">
 
         @error('password')
                 <div class="alert alert-danger">{{ $message }}</div>
