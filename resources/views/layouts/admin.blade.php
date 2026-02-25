@@ -562,8 +562,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3 py-2 rounded {{ request()->routeIs('admin.usersManegment.index') ? 'active' : '' }}"
-                           href="{{ LaravelLocalization::localizeURL(route('admin.usersManegment.index')) }}">
+                        <a class="nav-link px-3 py-2 rounded {{ request()->routeIs('admin.users.index') ? 'active' : '' }}"
+                           href="{{ LaravelLocalization::localizeURL(route('admin.users.index')) }}">
                             <i class="bi bi-people me-2"></i>
                             {{ __('messages.AllUsers') }}
                         </a>

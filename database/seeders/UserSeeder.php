@@ -21,16 +21,7 @@ class UserSeeder extends Seeder
         );
         $admin->assignRole('admin');
 
-        // Moderator
-        $moderator = User::firstOrCreate(
-            ['email' => 'moderator@gmail.com'],
-            [
-                'name' => 'Moderator User',
-                'password' => Hash::make('moderatorpassword'),
-                'email_verified_at' => now(),
-            ]
-        );
-        $moderator->assignRole('moderator');
+        
 
         // User
         $user = User::firstOrCreate(

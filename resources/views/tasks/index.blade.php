@@ -138,7 +138,6 @@
                                     <div class="py-4">
                                         <i class="fas fa-clipboard-list fa-4x text-muted mb-3"></i>
                                         <h5 class="text-muted">{{ __('messages.NoTasksFound') }}</h5>
-                                        <p class="text-muted mb-4">{{ __('messages.startCreatingTasks') }}</p>
                                         <a href="{{ route('tasks.create') }}" class="btn btn-primary px-5 rounded-pill">
                                             <i class="fas fa-plus-circle me-2"></i>
                                             {{ __('messages.CreateNewTask') }}
@@ -154,68 +153,8 @@
     </div>
 
     {{-- Pagination بسيط ومنسق وجميل --}}
-    @if(method_exists($tasks, 'links'))
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-4">
-            <div class="text-muted small mb-3 mb-md-0">
-                <i class="fas fa-tasks me-1 text-primary"></i>
-                <span class="fw-semibold text-dark">{{ $tasks->firstItem() ?? 0 }}</span>
-                <span class="mx-1">-</span>
-                <span class="fw-semibold text-dark">{{ $tasks->lastItem() ?? 0 }}</span>                <span class="fw-semibold text-primary">{{ $tasks->total() }}</span>
-                <span class="ms-1">{{ __('messages.tasks') }}</span>
-            </div>
+{{ $tasks->withQueryString()->links() }}
 
-            <div class="pagination-custom">
-                @if ($tasks->hasPages())
-                    <ul class="pagination mb-0">
-                        {{-- Previous Page Link --}}
-                        @if ($tasks->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link">
-                                    <i class="fas fa-chevron-right"></i>
-                                </span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $tasks->previousPageUrl() }}" rel="prev">
-                                    <i class="fas fa-chevron-right"></i>
-                                </a>
-                            </li>
-                        @endif
-
-                        {{-- Pagination Elements --}}
-                        @foreach ($tasks->getUrlRange(1, $tasks->lastPage()) as $page => $url)
-                            @if ($page >= $tasks->currentPage() - 2 && $page <= $tasks->currentPage() + 2)
-                                @if ($page == $tasks->currentPage())
-                                    <li class="page-item active">
-                                        <span class="page-link">{{ $page }}</span>
-                                    </li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                                    </li>
-                                @endif
-                            @endif
-                        @endforeach
-
-                        {{-- Next Page Link --}}
-                        @if ($tasks->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $tasks->nextPageUrl() }}" rel="next">
-                                    <i class="fas fa-chevron-left"></i>
-                                </a>
-                            </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link">
-                                    <i class="fas fa-chevron-left"></i>
-                                </span>
-                            </li>
-                        @endif
-                    </ul>
-                @endif
-            </div>
-        </div>
-    @endif
 </div>
 
 @push('styles')

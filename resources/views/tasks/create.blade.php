@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container py-4">
-   
+
     {{-- Create Task Form --}}
     <div class="row">
         <div class="col-md-8 col-lg-6 mx-auto">

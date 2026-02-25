@@ -57,11 +57,10 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard')->with('success', 'مرحباً بك في لوحة التحكم');
             }
 
-            if ($user->hasRole('moderator')) {
-                return redirect()->route('tasksManegment.index')->with('success', 'مرحباً بك يا مشرف');
+            if (!$user->hasRole('admin')) {
+            return redirect()->route('tasks.index')->with('success', 'مرحباً بك');
             }
 
-            return redirect()->route('tasks.index')->with('success', 'مرحباً بك');
         }
 
         return back()->withErrors([

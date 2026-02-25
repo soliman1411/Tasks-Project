@@ -4,7 +4,7 @@
 <div class="container">
 
     <h2 class="mb-4"> Updating User</h2>
-    <form action="{{ route('admin.usersManegment.update', $user->id) }}" method="POST">
+    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
         @csrf
         @method('PUT')
 

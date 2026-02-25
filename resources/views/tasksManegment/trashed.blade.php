@@ -22,7 +22,7 @@
                     <td>{{ $task->deleted_at->diffForHumans() }}</td>
                     <td>
                         {{-- استرجاع --}}
-                        <form action="{{ route('tasksManegment.restore', $task->id) }}" method="POST"
+                        <form action="{{ route('admin.tasks.restore', $task->id) }}" method="POST"
                             onsubmit="return confirm('Are you sure restore?')"style="display:inline;">
                             @csrf
                             @method('PUT')
@@ -30,7 +30,7 @@
                              >{{ __('messages.restore') }}</button>
                         </form>
                         @role('admin')
-                        <form action="{{ route('tasksManegment.forceDelete', $task->id) }}" method="POST"
+                        <form action="{{ route('admin.tasks.forceDelete', $task->id) }}" method="POST"
                             onsubmit="return confirm('Are you sure forceDelete?')"style="display:inline;">
                             @csrf
                             @method('DELETE')

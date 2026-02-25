@@ -31,21 +31,13 @@ class RolePermissionSeeder extends Seeder
 
         // 2. إنشاء الأدوار
         $adminRole     = Role::firstOrCreate(['name' => 'admin']);
-        $moderatorRole = Role::firstOrCreate(['name' => 'moderator']);
         $userRole      = Role::firstOrCreate(['name' => 'user']);
 
         // 3. ربط الصلاحيات بالأدوار
         // الأدمن: كل الصلاحيات
         $adminRole->givePermissionTo(Permission::all());
 
-        // المشرف: بس إدارة المهام
-        $moderatorRole->givePermissionTo([
-            'view all tasks',
-            'edit task',
-            'delete task',
-            'restore task',
-            'forceDelete task',
-        ]);
+
 
         // المستخدم: صلاحيات على مهامه فقط
         $userRole->givePermissionTo([
@@ -56,7 +48,7 @@ class RolePermissionSeeder extends Seeder
 
 
 
-        
+
     }
     }
 

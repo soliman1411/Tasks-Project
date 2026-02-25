@@ -7,7 +7,7 @@
 
 
     {{-- البحث وزر إنشاء مهمة جديدة --}}
-   <form action="{{ route('admin.usersManegment.index') }}" method="get">
+   <form action="{{ route('admin.users.index') }}" method="get">
     @csrf
      <div class="row mb-4">
         <div class="col-md-8 d-flex">
@@ -42,10 +42,10 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td class="d-flex justify-content-center gap-2">
-                            <a href="{{ route('admin.usersManegment.edit', $user->id) }}" class="btn btn-sm btn-primary">
+                            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-primary">
                                 {{ __('messages.edit') }}
                             </a>
-                            <form action="{{ route('admin.usersManegment.destroy', $user->id) }}" method="POST"
+                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
                                   onsubmit="return confirm('Are you sure?')">
                                 @csrf
                                 @method('DELETE')

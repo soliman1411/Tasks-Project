@@ -40,53 +40,74 @@ Route::group([
     */
     Route::middleware(['auth'])->group(function () {
 
-        // User Tasks
-        Route::resource('tasks', TasksController::class)->except('show');
-
-        // User Profile
-        Route::prefix('user/profile')->controller(ProfileController::class)->group(function () {
+        // User Profile (متاح للجميع)
+        Route::prefix('profile')->controller(ProfileController::class)->group(function () {
             Route::get('/', 'show')->name('profile.show');
-            Route::put('/{id}/update', 'update_profile')->name('profile.update');
+            Route::put('/update', 'update_profile')->name('profile.update');
         });
-    });
 
-    /*
-    |--------------------------------------------------------------------------
-    | Moderator & Admin Routes (role:admin or moderator)
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware(['auth', 'role:admin|moderator'])->group(function () {
-
-        Route::resource('tasksManegment', TasksManegmentController::class)->except('show');
-
-        Route::prefix('tasksManegment')->controller(TasksManegmentController::class)->group(function () {
-            Route::get('/trashed', 'trashed')->name('tasksManegment.trashed');
-            Route::put('/{id}/restore', 'restore')->name('tasksManegment.restore');
-            Route::delete('/{id}/force-delete', 'forceDelete')->name('tasksManegment.forceDelete');
+        /*
+        |--------------------------------------------------------------------------
+        | User Routes (للمستخدم العادي فقط)
+        |--------------------------------------------------------------------------
+        */
+        Route::middleware(['role:user'])->group(function () {
+            // المستخدم العادي: يدير مهامه الشخصية فقط
+            Route::resource('tasks', TasksController::class)->except('show');
         });
-    });
 
-    /*
-    |--------------------------------------------------------------------------
-    | Admin Only Routes (role:admin only)
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+        /*
+        |--------------------------------------------------------------------------
+        | Admin Routes (كل الصلاحيات)
+        |--------------------------------------------------------------------------
+        */
+        Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
-        Route::controller(AdminController::class)->group(function () {
+            // لوحة التحكم
+            Route::controller(AdminController::class)->group(function () {
+                Route::get('/dashboard', 'index')->name('dashboard');
+                Route::get('/notifications', 'allNotifications')->name('notifications');
+            });
+
+            /*
+            |--------------------------------------------------------------------------
+            | Admin: Users Management (كامل الصلاحيات)
+            |--------------------------------------------------------------------------
+            */
+            Route::resource('users', UsersManegmentController::class)->except('show');
+
+            // Soft Delete & Force Delete للمستخدمين
+            Route::prefix('users')->controller(UsersManegmentController::class)->group(function () {
+                Route::get('/trashed', 'trashed')->name('users.trashed');
+                Route::put('/{id}/restore', 'restore')->name('users.restore');
+                Route::delete('/{id}/force-delete', 'forceDelete')->name('users.forceDelete');
+            });
+
+            /*
+            |--------------------------------------------------------------------------
+            | Admin: Tasks Management (كامل الصلاحيات)
+            |--------------------------------------------------------------------------
+            */
+            Route::resource('tasks', TasksManegmentController::class)->except('show');
+            // Soft Delete & Force Delete للمهام
+            Route::prefix('tasks')->controller(TasksManegmentController::class)->group(function () {
+                Route::get('/trashed', 'trashed')->name('tasks.trashed');
+                Route::put('/{id}/restore', 'restore')->name('tasks.restore');
+                Route::delete('/{id}/force-delete', 'forceDelete')->name('tasks.forceDelete');
+            });
+
+            /*
+            |--------------------------------------------------------------------------
+            | Admin: View User Tasks
+            |--------------------------------------------------------------------------
+            */
+            Route::controller(AdminController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard');
             Route::get('/notifications', 'AllNotifications')->name('notifications');
             Route::get('/tasks/showAllTasks', 'showAllTasks')->name('showAllTasks');
-            Route::get('/tasks/{id}/show', 'showTasks')->name('showTasks');
+            Route::get('/users/{user}/tasks', 'showUserTasks')->name('showTasks');
         });
 
-        Route::resource('usersManegment', UsersManegmentController::class);
-
-        Route::prefix('users')->controller(UsersManegmentController::class)->group(function () {
-            Route::get('/trashed', 'trashed')->name('usersManegment.trashed');
-            Route::put('/{id}/restore', 'restore')->name('usersManegment.restore');
-            Route::delete('/{id}/force-delete', 'forceDelete')->name('usersManegment.forceDelete');
         });
     });
-
 });

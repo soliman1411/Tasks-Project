@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <h2 class="mb-4">  + {{ __('messages.CreateNewUser') }}</h2>
-    <form action="{{ route('admin.usersManegment.store') }}" method="POST">
+    <form action="{{ route('admin.users.store') }}" method="POST">
         @csrf
        <div class="mb-3">
     <label class="form-label">{{ __('messages.userName') }}</label>

@@ -4,7 +4,7 @@
 <div class="container">
 
     <h2 class="mb-4">{{ __('messages.taskUpdating') }}</h2>
-    <form action="{{ route('tasksManegment.update', $task->id) }}" method="POST">
+    <form action="{{ route('admin.tasks.update', $task->id) }}" method="POST">
         @csrf
         @method('PUT')
 

@@ -16,7 +16,7 @@
                 {{ __('messages.totalUsers') }}: {{ $users->total() ?? 0 }}
             </p>
         </div>
-        <a href="{{ route('admin.usersManegment.trashed') }}" class="btn btn-outline-warning">
+        <a href="{{ route('admin.users.trashed') }}" class="btn btn-outline-danger">
             <i class="fas fa-trash-restore me-1"></i>
             {{ __('messages.recycleBin') }}
         </a>
@@ -27,7 +27,7 @@
         <div class="col-md-8">
             <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body p-3">
-                    <form action="{{ route('admin.usersManegment.index') }}" method="get" class="row g-2">
+                    <form action="{{ route('admin.users.index') }}" method="get" class="row g-2">
                         @csrf
                         <div class="col-9">
                             <div class="input-group">
@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <a href="{{ route('admin.usersManegment.create') }}" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-2" style="height: 45px;">
+            <a href="{{ route('admin.users.create') }}" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-2" style="height: 45px;">
                 <i class="fas fa-user-plus"></i>
                 {{ __('messages.CreateNewUser') }}
             </a>
@@ -113,7 +113,7 @@
                                 </td>
                                 <td class="px-3">
                                     <div class="d-flex justify-content-center gap-2">
-                                        <a href="{{ route('admin.usersManegment.edit', $user->id) }}"
+                                        <a href="{{ route('admin.users.edit', $user->id) }}"
                                            class="btn btn-sm btn-primary rounded-pill px-3 hover-lift"
                                            data-bs-toggle="tooltip"
                                            title="{{ __('messages.edit') }}">
@@ -121,7 +121,7 @@
                                             {{ __('messages.edit') }}
                                         </a>
 
-                                        <form action="{{ route('admin.usersManegment.destroy', $user->id) }}"
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}"
                                               method="POST"
                                               class="d-inline"
                                               onsubmit="return confirm('{{ __('messages.confirmDelete') }}')">
@@ -152,19 +152,10 @@
         </div>
     </div>
 
-    {{-- Pagination --}}
-    @if(method_exists($users, 'links'))
-    <div class="d-flex justify-content-between align-items-center mt-4">
-        <div class="text-muted small">
-            <i class="fas fa-users me-1 text-primary"></i>
-            {{ __('messages.showing') }} {{ $users->firstItem() ?? 0 }} - {{ $users->lastItem() ?? 0 }}
-            {{ __('messages.of') }} {{ $users->total() }} {{ __('messages.users') }}
-        </div>
-        <div>
+    
+
             {{ $users->withQueryString()->links() }}
-        </div>
-    </div>
-    @endif
+
 </div>
 
 <style>

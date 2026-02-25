@@ -112,17 +112,5 @@ class TasksController extends Controller
             flash()->warning('Task deleted.');
     return redirect()->route('tasks.index');
 }
-//    public function trashed()
-// {
-//     $tasks = Task::onlyTrashed()->get();
-//     return view('tasks.trashed', compact('tasks'));
-// }
 
-//        public function restore($id)
-// {
-//     $task = Task::withTrashed()->findOrFail($id);
-//     $task->restore();
-//             flash()->info('Task restored.');
-//     return redirect()->route('tasks.index');
-// }
 }

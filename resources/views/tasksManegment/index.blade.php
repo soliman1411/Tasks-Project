@@ -4,12 +4,12 @@
 <div class="container mt-5">
     <h2 class="mb-4 text-primary"></h2>
 
-     <a href="{{ route('tasksManegment.trashed') }}" class="btn btn-success btn-lg">
+     <a href="{{ route('admin.tasks.trashed') }}" class="btn btn-success btn-lg">
                         {{ __('messages.recycleBin') }}
     </a>
 
     {{-- البحث وزر إنشاء مهمة جديدة --}}
-   <form action="{{ route('tasksManegment.index') }}" method="get">
+   <form action="{{ route('admin.tasks.index') }}" method="get">
     @csrf
      <div class="row mb-4">
         <div class="col-md-8 d-flex">
@@ -19,7 +19,7 @@
         </div>
    </form>
         <div class="col-md-4 text-md-end mt-3 mt-md-0">
-            <a href="{{ route('tasksManegment.create') }}" class="btn btn-success btn-lg">
+            <a href="{{ route('admin.tasks.create') }}" class="btn btn-success btn-lg">
                 + {{ __('messages.CreateNewTask') }}
             </a>
         </div>
@@ -54,10 +54,10 @@
                         <td>{{$task->user->name}}</td>
 
                         <td class="d-flex justify-content-center gap-2">
-                            <a href="{{ route('tasksManegment.edit', $task->id) }}" class="btn btn-sm btn-primary">
+                            <a href="{{ route('admin.tasks.edit', $task->id) }}" class="btn btn-sm btn-primary">
                                 {{ __('messages.edit') }}
                             </a>
-                            <form action="{{ route('tasksManegment.destroy', $task->id) }}" method="POST"
+                            <form action="{{ route('admin.tasks.destroy', $task->id) }}" method="POST"
                                   onsubmit="return confirm('Are you sure?')">
                                 @csrf
                                 @method('DELETE')

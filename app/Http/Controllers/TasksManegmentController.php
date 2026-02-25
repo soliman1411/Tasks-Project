@@ -54,7 +54,7 @@ class TasksManegmentController extends Controller
     'user_id' => $request->user_id,
 ]);
     flash()->success('Task created.');
-    return redirect()->route('tasksManegment.index');
+            return redirect()->route('admin.tasks.index');
 }
 
 
@@ -87,7 +87,7 @@ class TasksManegmentController extends Controller
         ]);
             flash()->success('Task updated.');
 
-        return redirect()->route('tasksManegment.index');
+            return redirect()->route('admin.tasks.index');
 
     }
 
@@ -100,7 +100,7 @@ class TasksManegmentController extends Controller
 
     flash()->warning('Task Deleted.');
 
-    return redirect()->route('tasksManegment.index');
+            return redirect()->route('admin.tasks.index');
 }
      public function trashed()
 {
@@ -114,7 +114,7 @@ class TasksManegmentController extends Controller
     $task->restore();
     flash()->info('Task restored.');
 
-    return redirect()->route('tasksManegment.index');
+            return redirect()->route('admin.tasks.index');
 }
 
      public function forceDelete($id)
@@ -123,7 +123,7 @@ class TasksManegmentController extends Controller
     $task->forceDelete();
     flash()->warning('Task forceDeleted.');
 
-    return redirect()->route('tasksManegment.index');
+            return redirect()->route('admin.tasks.index');
 }
 
 }

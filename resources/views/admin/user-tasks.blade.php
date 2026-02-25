@@ -1,30 +1,57 @@
 @extends('layouts.admin')
 
+
 @section('content')
 <div class="container-fluid px-4 py-4">
 
+    {{-- Header with user info --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center gap-3">
+            <div class="bg-info bg-opacity-10 p-3 rounded-circle">
+                <i class="fas fa-user text-info fa-2x"></i>
+            </div>
+            <div>
+                <h2 class="fw-bold mb-1" style="color: #0dcaf0;">
+                    {{ __('messages.userName') }}: {{ $user->name }}
+                </h2>
+                <p class="text-muted mb-0">
+                    <i class="fas fa-envelope me-1"></i> {{ $user->email }}
+                </p>
+            </div>
+        </div>
+        <div>
+            <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary me-2">
+                <i class="fas fa-arrow-left me-1"></i>{{ __('messages.cancel') }}
+            </a>
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-primary">
+                <i class="fas fa-tachometer-alt me-1"></i>{{ __('messages.Dashboard') }}
+            </a>
+        </div>
+    </div>
 
-    {{-- Search Form --}}
+
+
+    {{-- Search and Filter --}}
     <div class="card border-0 shadow-sm rounded-3 mb-4">
         <div class="card-body p-3">
-            <form action="{{ route('admin.showAllTasks') }}" method="get" class="row g-2">
-                <div class="col-md-9">
+            <form action="{{ route('admin.showTasks', $user) }}" method="get" class="row g-2">
+                <div class="col-md-5">
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0">
                             <i class="fas fa-search text-primary"></i>
                         </span>
                         <input type="text"
                                name="search"
-                               id="search"
-                               value="{{ request()->search }}"
+                               value="{{ request('search') }}"
                                class="form-control border-start-0"
                                placeholder="{{ __('messages.searchTasksWithTitle') }}"
                                style="height: 45px;">
                     </div>
                 </div>
+
                 <div class="col-md-3">
                     <button type="submit" class="btn btn-primary w-100" style="height: 45px;">
-                        <i class="fas fa-search me-2"></i>{{ __('messages.search') }}
+                        <i class="fas fa-filter me-2"></i>{{ __('messages.search') }}
                     </button>
                 </div>
             </form>
@@ -36,7 +63,7 @@
         <div class="card-header bg-white py-3">
             <h5 class="mb-0">
                 <i class="fas fa-list-check me-2 text-primary"></i>
-                {{ __('messages.AllTasks') }}
+                {{ __('messages.tasks') }}
             </h5>
         </div>
         <div class="card-body p-0">
@@ -47,8 +74,8 @@
                             <th class="px-3 py-3 text-center">{{ __('messages.id') }}</th>
                             <th class="px-3 py-3">{{ __('messages.taskTitle') }}</th>
                             <th class="px-3 py-3">{{ __('messages.taskDescription') }}</th>
-                            <th class="px-3 py-3">{{ __('messages.userName') }}</th>
                             <th class="px-3 py-3 text-center">{{ __('messages.is_Done') }}</th>
+                            <th class="px-3 py-3 text-center">{{ __('messages.createdAt') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,17 +95,6 @@
                                 <td class="px-3">
                                     <span class="text-muted">{{ Str::limit($task->description, 50) }}</span>
                                 </td>
-                                <td class="px-3">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-info bg-opacity-10 rounded-circle p-1 me-2">
-                                            <i class="fas fa-user text-info"></i>
-                                        </div>
-                                        <div>
-                                            <span class="fw-semibold">{{ $task->user->name }}</span>
-
-                                        </div>
-                                    </div>
-                                </td>
                                 <td class="px-3 text-center">
                                     @if($task->is_done == "complete")
                                         <span class="badge bg-success px-3 py-2 rounded-pill">
@@ -91,6 +107,9 @@
                                             {{ __('messages.inComplete') }}
                                         </span>
                                     @endif
+                                </td>
+                                <td class="px-3 text-center">
+                                    {{ $task->created_at->format('Y-m-d') }}
                                 </td>
                             </tr>
                         @empty
@@ -108,47 +127,15 @@
     </div>
 
     {{-- Pagination --}}
-                {{ $tasks->withQueryString()->links() }}
-
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <div class="text-muted small">
+            <i class="fas fa-tasks me-1 text-primary"></i>
+            {{ __('messages.showing') }} {{ $tasks->firstItem() ?? 0 }} - {{ $tasks->lastItem() ?? 0 }}
+            {{ __('messages.of') }} {{ $tasks->total() }} {{ __('messages.tasks') }}
+        </div>
+        <div>
+            {{ $tasks->withQueryString()->links() }}
+        </div>
+    </div>
 </div>
-
-<style>
-    .table > :not(caption) > * > * {
-        padding: 1rem 0.75rem;
-    }
-
-    .form-control, .input-group-text {
-        border: 1px solid #dee2e6;
-    }
-
-    .form-control:focus {
-        border-color: #86b7fe;
-        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
-    }
-
-    .card {
-        transition: all 0.3s ease;
-    }
-
-    .badge {
-        font-weight: 500;
-    }
-
-    /* RTL Support */
-    [dir="rtl"] .me-1, [dir="rtl"] .me-2 {
-        margin-left: 0.25rem !important;
-        margin-right: 0 !important;
-    }
-
-    [dir="rtl"] .ms-auto {
-        margin-right: auto !important;
-        margin-left: 0 !important;
-    }
-
-    @media (max-width: 768px) {
-        .col-md-9, .col-md-3 {
-            width: 100%;
-        }
-    }
-</style>
 @endsection

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2 class="mb-4">{{ __('messages.CreateNewTask') }}</h2>
-    <form action="{{ route('tasksManegment.store') }}" method="POST">
+    <form action="{{ route('admin.tasks.restore') }}" method="POST">
         @csrf
         <div class="mb-3">
 

@@ -37,7 +37,7 @@ $users = User::whereDoesntHave('roles', function ($q) {
 
         ]);
             flash()->success('user created.');
-        return redirect()->route('usersManegment.index');
+        return redirect()->route('admin.users.index');
 
     }
 
@@ -56,14 +56,14 @@ $users = User::whereDoesntHave('roles', function ($q) {
         ]);
 
             flash()->success('user updated.');
-            return redirect()->route('usersManegment.index');
+            return redirect()->route('admin.users.index');
 
     }
 
     public  function destroy($id)  {
         User::destroy($id);
             flash()->warning('user delete.');
-        return redirect()->route('usersManegment.index');
+            return redirect()->route('admin.users.index');
     }
 
      public function trashed()
@@ -77,7 +77,7 @@ $users = User::whereDoesntHave('roles', function ($q) {
     $user = User::withTrashed()->findOrFail($id);
     $user->restore();
             flash()->info('user restored.');
-    return redirect()->route('usersManegment.index');
+            return redirect()->route('admin.users.index');
 }
 
      public function forceDelete($id)
@@ -85,7 +85,7 @@ $users = User::whereDoesntHave('roles', function ($q) {
     $User = User::withTrashed()->findOrFail($id);
     $User->forceDelete();
             flash()->warning('user forceDelete.');
-    return redirect()->route('usersManegment.index');
+            return redirect()->route('admin.users.index');
 }
 
 

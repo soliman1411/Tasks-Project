@@ -19,7 +19,17 @@ class AdminController extends Controller
         ,'completedTasks','inCompletedTasks'));
     }
 
+    public function showUserTasks(Request $request, User $user)
+{
+    $tasks = $user->tasks()
+        ->when($request->search, function($query, $search) {
+            $query->where('title', 'like', '%' . $search . '%');
+        })
+        ->latest()
+        ->paginate(10);
 
+    return view('admin.user-tasks', compact('user', 'tasks'));
+}
 
 
 
