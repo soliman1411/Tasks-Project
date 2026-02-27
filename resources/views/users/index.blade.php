@@ -106,7 +106,7 @@
                                     <a href="{{ route('admin.showTasks', $user->id) }}"
                                        class="btn btn-sm btn-outline-primary rounded-pill px-3 hover-lift"
                                        data-bs-toggle="tooltip"
-                                       title="{{ __('messages.showTasks') }}">
+                                       title="{{ __('messages.ShowTasks') }}">
                                         <i class="fas fa-tasks me-1"></i>
                                         {{ __('messages.ShowTasks') }}
                                     </a>

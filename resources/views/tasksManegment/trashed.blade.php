@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container mt-5">
@@ -23,7 +23,7 @@
                     <td>
                         {{-- استرجاع --}}
                         <form action="{{ route('admin.tasks.restore', $task->id) }}" method="POST"
-                            onsubmit="return confirm('Are you sure restore?')"style="display:inline;">
+                            onsubmit="return confirm('{{ __('messages.confirmRestore') }}')"style="display:inline;">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-success btn-sm"
@@ -31,7 +31,8 @@
                         </form>
                         @role('admin')
                         <form action="{{ route('admin.tasks.forceDelete', $task->id) }}" method="POST"
-                            onsubmit="return confirm('Are you sure forceDelete?')"style="display:inline;">
+                            onsubmit="return confirm('{{ __('messages.confirmDelete') }}')"
+                            style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-success btn-sm"
@@ -47,4 +48,6 @@
         </tbody>
     </table>
 </div>
+{{ $tasks->withQueryString()->links() }}
+
 @endsection

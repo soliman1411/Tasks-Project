@@ -15,10 +15,10 @@ class TasksManegmentController extends Controller
     public function index(Request $request)
     {
         if ($request->search) {
-        $tasks = Task::with('user')->where('title','like','%'.$request->search.'%')->paginate(10);
+        $tasks = Task::with('user')->where('title','like','%'.$request->search.'%')->latest()->paginate(10);
         } else {
 
-            $tasks = Task::with('user')->paginate(10);
+            $tasks = Task::with('user')->latest()->paginate(10);
         }
 
         return view('tasksManegment.index',compact('tasks'));
@@ -104,7 +104,7 @@ class TasksManegmentController extends Controller
 }
      public function trashed()
 {
-    $tasks = Task::onlyTrashed()->get();
+    $tasks = Task::onlyTrashed()->latest()->paginate(10);
     return view('tasksManegment.trashed', compact('tasks'));
 }
 

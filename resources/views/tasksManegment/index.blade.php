@@ -58,7 +58,7 @@
                                 {{ __('messages.edit') }}
                             </a>
                             <form action="{{ route('admin.tasks.destroy', $task->id) }}" method="POST"
-                                  onsubmit="return confirm('Are you sure?')">
+                                  onsubmit="return confirm('{{ __('messages.confirmDelete') }}')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">

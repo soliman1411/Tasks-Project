@@ -461,7 +461,7 @@
         const isRTL = document.documentElement.dir === 'rtl';
         const languageContainer = document.getElementById('languageDropdownContainer');
         const navbarBrand = document.getElementById('navbarBrand');
-        
+
         // تطبيق أنماط CSS مباشرة
         if (isRTL) {
             // في اللغة العربية: الشعار يمين، الزر يسار

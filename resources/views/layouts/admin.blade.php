@@ -34,6 +34,7 @@
             flex-direction: column;
         }
 
+
         /* تصميم النافبار - نفس تنسيق واجهات المصادقة */
         .navbar-auth {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -435,6 +436,46 @@
             [dir="rtl"] .notifications-wrapper {
                 margin-right: auto;
                 margin-left: 10px;
+            }
+        }
+
+        /* ===== فقط لظهور الفلاشر فوق النافبار ===== */
+        #flasher-container,
+        .flasher-container,
+        .fl-wrapper {
+            position: fixed !important;
+            top: 80px !important;
+            right: 20px !important;
+            z-index: 9999 !important;
+            pointer-events: none;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        [dir="rtl"] #flasher-container,
+        [dir="rtl"] .flasher-container {
+            right: auto !important;
+            left: 20px !important;
+        }
+
+        .fl-flasher {
+            pointer-events: auto !important;
+            margin-bottom: 10px !important;
+        }
+
+        @media (max-width: 768px) {
+            #flasher-container,
+            .flasher-container {
+                top: 70px !important;
+                right: 10px !important;
+                left: 10px !important;
+                max-width: none !important;
+            }
+
+            [dir="rtl"] #flasher-container,
+            [dir="rtl"] .flasher-container {
+                right: 10px !important;
+                left: 10px !important;
             }
         }
     </style>

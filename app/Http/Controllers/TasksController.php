@@ -21,11 +21,11 @@ class TasksController extends Controller
         if ($request->search) {
         $tasks = Task::where('title','like','%'.$request->search.'%')
         ->where('user_id', Auth::id())
-        ->paginate(10);
+        ->latest()->paginate(10);
 
         } else {
 
-            $tasks = Task::where('user_id', Auth::id())->paginate(10);
+            $tasks = Task::where('user_id', Auth::id())->latest()->paginate(10);
         }
 
 
