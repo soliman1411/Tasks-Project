@@ -1,4 +1,5 @@
 @extends('layouts.app')
+        <link rel="stylesheet" href="{{ asset('css/component/tasks/index.css') }}">
 
 @section('content')
 <div class="container-fluid px-4 py-4">
@@ -14,11 +15,7 @@
             </div>
         </div>
 
-        {{-- Profile Button --}}
-        <a href="{{ route('profile.show') }}" class="btn btn-outline-primary rounded-pill px-4 py-2 shadow-sm hover-lift">
-            <i class="fas fa-user-circle me-2"></i>
-            {{ __('messages.Profile') }}
-        </a>
+       
     </div>
 
     {{-- Search and Create Section - مصغر --}}
@@ -157,162 +154,7 @@
 
 </div>
 
-@push('styles')
-<style>
-    .hover-lift {
-        transition: all 0.3s ease;
-    }
-    .hover-lift:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    }
-    .table > :not(caption) > * > * {
-        padding: 1rem 0.75rem;
-    }
-    .bg-gradient {
-        background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
-    }
-    .input-group-text {
-        border-radius: 8px 0 0 8px;
-        height: 45px;
-    }
-    .form-control {
-        border-radius: 0 8px 8px 0;
-        height: 45px;
-        font-size: 0.95rem;
-    }
-    .btn {
-        border-radius: 8px;
-        font-weight: 500;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .btn-lg {
-        height: 45px;
-        padding: 0 1.5rem;
-        font-size: 0.95rem;
-    }
-    .card {
-        transition: all 0.3s ease;
-        border-radius: 16px !important;
-    }
-    .card:hover {
-        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
-    }
-    .badge {
-        font-weight: 500;
-        letter-spacing: 0.3px;
-        font-size: 0.85rem;
-    }
-    .bg-primary.bg-gradient {
-        background: linear-gradient(145deg, #0d6efd, #0b5ed7);
-    }
 
-    /* Pagination Custom Styles */
-    .pagination-custom .pagination {
-        display: flex;
-        gap: 6px;
-        margin: 0;
-        padding: 0;
-    }
-
-    .pagination-custom .page-item {
-        list-style: none;
-    }
-
-    .pagination-custom .page-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 38px;
-        height: 38px;
-        border-radius: 12px !important;
-        border: 1px solid #e9ecef;
-        background-color: white;
-        color: #495057;
-        font-weight: 600;
-        font-size: 0.95rem;
-        transition: all 0.2s ease;
-        text-decoration: none;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-    }
-
-    .pagination-custom .page-link:hover {
-        background-color: #f1f5f9;
-        border-color: #cbd5e1;
-        color: #0d6efd;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(13, 110, 253, 0.12);
-    }
-
-    .pagination-custom .page-item.active .page-link {
-        background: linear-gradient(145deg, #0d6efd, #0b5ed7);
-        border-color: #0d6efd;
-        color: white;
-        box-shadow: 0 6px 14px rgba(13, 110, 253, 0.25);
-        font-weight: 600;
-    }
-
-    .pagination-custom .page-item.disabled .page-link {
-        background-color: #f8f9fa;
-        border-color: #e9ecef;
-        color: #adb5bd;
-        pointer-events: none;
-        opacity: 0.7;
-        transform: none;
-        box-shadow: none;
-    }
-
-    .pagination-custom .page-link i {
-        font-size: 0.8rem;
-        color: currentColor;
-    }
-
-    .pagination-custom .page-item:first-child .page-link i,
-    .pagination-custom .page-item:last-child .page-link i {
-        font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-        .col-lg-7, .col-lg-5 {
-            width: 100%;
-        }
-        .text-lg-end {
-            text-align: left !important;
-            margin-top: 0.5rem;
-        }
-        .badge.px-4.py-3 {
-            font-size: 1rem;
-            padding: 0.75rem 1rem !important;
-        }
-
-        .pagination-custom .page-link {
-            width: 36px;
-            height: 36px;
-            font-size: 0.9rem;
-            border-radius: 10px !important;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .pagination-custom .page-item:not(.active):not(:first-child):not(:last-child) {
-            display: none;
-        }
-
-        .pagination-custom .page-link {
-            width: 42px;
-            height: 42px;
-        }
-
-        .pagination-custom .page-item:first-child .page-link,
-        .pagination-custom .page-item:last-child .page-link {
-            width: auto;
-            padding: 0 16px;
-        }
-    }
-</style>
-@endpush
 
 @push('scripts')
 <script>

@@ -40,12 +40,7 @@ Route::group([
     */
     Route::middleware(['auth'])->group(function () {
 
-        // User Profile (متاح للجميع)
-        Route::prefix('profile')->controller(ProfileController::class)->group(function () {
-            Route::get('/', 'show')->name('profile.show');
-            Route::put('/update', 'update_profile')->name('profile.update');
-        });
-
+    
         /*
         |--------------------------------------------------------------------------
         | User Routes (للمستخدم العادي فقط)
@@ -104,7 +99,6 @@ Route::group([
             Route::controller(AdminController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard');
             Route::get('/notifications', 'AllNotifications')->name('notifications');
-            Route::get('/tasks/showAllTasks', 'showAllTasks')->name('showAllTasks');
             Route::get('/users/{user}/tasks', 'showUserTasks')->name('showTasks');
         });
 

@@ -37,21 +37,7 @@ class AdminController extends Controller
 
 
 
-    function showAllTasks(Request $request) {
 
-      if ($request->search) {
-        $tasks = Task::with('user')
-        ->where('title','like','%'.$request->search.'%')
-        ->latest()
-        ->paginate(10);
-
-        } else {
-
-            $tasks = Task::with('user')->latest()->paginate(10);
-        }
-
-        return view('users.showAllTasks',compact('tasks'));
-    }
 
     function AllNotifications() {
 

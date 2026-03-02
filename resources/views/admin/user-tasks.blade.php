@@ -23,9 +23,7 @@
             <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary me-2">
                 <i class="fas fa-arrow-left me-1"></i>{{ __('messages.cancel') }}
             </a>
-            <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-primary">
-                <i class="fas fa-tachometer-alt me-1"></i>{{ __('messages.Dashboard') }}
-            </a>
+            
         </div>
     </div>
 

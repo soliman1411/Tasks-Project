@@ -114,56 +114,9 @@
     </div>
 
     {{-- Pagination --}}
+            {{ $users->withQueryString()->links() }}
 
 </div>
 
-<style>
-    .table > :not(caption) > * > * {
-        padding: 1rem 0.75rem;
-    }
 
-    .card {
-        transition: all 0.3s ease;
-    }
-
-    .badge {
-        font-weight: 500;
-    }
-
-    .btn {
-        transition: all 0.3s ease;
-    }
-
-    .hover-lift:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    }
-
-    /* RTL Support */
-    [dir="rtl"] .me-1, [dir="rtl"] .me-2 {
-        margin-left: 0.25rem !important;
-        margin-right: 0 !important;
-    }
-
-    [dir="rtl"] .ms-auto {
-        margin-right: auto !important;
-        margin-left: 0 !important;
-    }
-
-    @media (max-width: 768px) {
-        .d-flex.justify-content-between.align-items-center {
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .d-flex.justify-content-center.gap-2 {
-            flex-direction: column;
-            gap: 0.5rem !important;
-        }
-
-        .btn-sm {
-            width: 100%;
-        }
-    }
-</style>
 @endsection

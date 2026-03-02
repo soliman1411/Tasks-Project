@@ -94,7 +94,7 @@ class TasksController extends Controller
     $admin = User::findOrFail(1);
 
    $admin->notify(new UserUpdatedTask(Auth::user(),$task));
-            flash()->success('Task updated.');
+            flash()->warning('Task updated.');
         return redirect()->route('tasks.index');
 
     }

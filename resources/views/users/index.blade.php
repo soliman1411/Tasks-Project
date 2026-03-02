@@ -1,10 +1,9 @@
 @extends('layouts.admin')
 
-
 @section('content')
 <div class="container-fluid px-4 py-4">
 
-    {{-- Header with Recycle Bin --}}
+    {{-- Header with Actions --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold mb-1" style="color: #0d6efd;">
@@ -16,10 +15,19 @@
                 {{ __('messages.totalUsers') }}: {{ $users->total() ?? 0 }}
             </p>
         </div>
-        <a href="{{ route('admin.users.trashed') }}" class="btn btn-outline-danger">
-            <i class="fas fa-trash-restore me-1"></i>
-            {{ __('messages.recycleBin') }}
-        </a>
+        <div class="d-flex gap-2">
+            {{-- Trash Button --}}
+            <a href="{{ route('admin.users.trashed') }}" class="btn btn-outline-danger d-flex align-items-center gap-2" style="height: 45px;">
+                <i class="fas fa-trash-restore"></i>
+                {{ __('messages.recycleBin') }}
+            </a>
+
+            {{-- Create User Button --}}
+            <a href="{{ route('admin.users.create') }}" class="btn btn-success d-flex align-items-center gap-2" style="height: 45px;">
+                <i class="fas fa-user-plus"></i>
+                {{ __('messages.CreateNewUser') }}
+            </a>
+        </div>
     </div>
 
     {{-- Search and Create Section --}}
@@ -52,12 +60,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
             <a href="{{ route('admin.users.create') }}" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-2" style="height: 45px;">
                 <i class="fas fa-user-plus"></i>
                 {{ __('messages.CreateNewUser') }}
             </a>
-        </div>
+        </div> --}}
     </div>
 
     {{-- Users Table --}}
@@ -152,81 +160,9 @@
         </div>
     </div>
 
-    
-
-            {{ $users->withQueryString()->links() }}
-
+    {{-- Pagination --}}
+    <div class="mt-4">
+        {{ $users->withQueryString()->links() }}
+    </div>
 </div>
-
-<style>
-    .table > :not(caption) > * > * {
-        padding: 1rem 0.75rem;
-    }
-
-    .form-control, .input-group-text {
-        border: 1px solid #dee2e6;
-    }
-
-    .form-control:focus {
-        border-color: #86b7fe;
-        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
-    }
-
-    .card {
-        transition: all 0.3s ease;
-    }
-
-    .badge {
-        font-weight: 500;
-    }
-
-    .btn {
-        transition: all 0.3s ease;
-    }
-
-    .btn-outline-primary:hover {
-        background-color: #0d6efd;
-        color: white;
-    }
-
-    .hover-lift:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    }
-
-    /* RTL Support */
-    [dir="rtl"] .me-1, [dir="rtl"] .me-2 {
-        margin-left: 0.25rem !important;
-        margin-right: 0 !important;
-    }
-
-    [dir="rtl"] .ms-auto {
-        margin-right: auto !important;
-        margin-left: 0 !important;
-    }
-
-    @media (max-width: 768px) {
-        .col-md-8, .col-md-4, .col-9, .col-3 {
-            width: 100%;
-        }
-
-        .btn {
-            width: 100%;
-        }
-
-        .d-flex.justify-content-center.gap-2 {
-            flex-direction: column;
-            gap: 0.5rem !important;
-        }
-
-        .btn-sm {
-            width: 100%;
-        }
-
-        .d-flex.justify-content-between.align-items-center {
-            flex-direction: column;
-            gap: 1rem;
-        }
-    }
-</style>
 @endsection

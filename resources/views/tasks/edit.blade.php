@@ -1,4 +1,5 @@
 @extends('layouts.app')
+        <link rel="stylesheet" href="{{ asset('css/component/tasks/edit.css') }}">
 
 @section('content')
 <div class="container py-4">
@@ -86,102 +87,5 @@
     </div>
 </div>
 
-<style>
-    /* الحفاظ على بنية الصفحة الأساسية */
-    .container {
-        max-width: 1140px;
-    }
 
-    /* تحسينات بسيطة للنموذج */
-    .form-control, .form-select {
-        border: 1px solid #dee2e6;
-        border-radius: 6px;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.95rem;
-        transition: all 0.2s ease;
-    }
-
-    .form-control:focus, .form-select:focus {
-        border-color: #86b7fe;
-        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
-        outline: none;
-    }
-
-    .form-label {
-        font-size: 0.95rem;
-        color: #495057;
-        margin-bottom: 0.35rem;
-        font-weight: 500;
-    }
-
-    /* تحسين رسائل الخطأ - مع الحفاظ على شكل alert */
-    .alert {
-        border-radius: 6px;
-        border: none;
-        font-size: 0.9rem;
-        margin-bottom: 0;
-    }
-
-    .alert-danger {
-        background-color: #f8d7da;
-        color: #842029;
-    }
-
-    /* تحسين الأزرار */
-    .btn {
-        border-radius: 6px;
-        padding: 0.5rem 1.5rem;
-        font-size: 0.95rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-    }
-
-    .btn-warning {
-        background-color: #ffc107;
-        border-color: #ffc107;
-        color: #212529;
-    }
-
-    .btn-warning:hover {
-        background-color: #e0a800;
-        border-color: #d39e00;
-        transform: translateY(-1px);
-    }
-
-    .btn-light {
-        background-color: #f8f9fa;
-        border-color: #f8f9fa;
-    }
-
-    .btn-light:hover {
-        background-color: #e2e6ea;
-        border-color: #dae0e5;
-    }
-
-    /* تحسين البطاقة */
-    .card {
-        border-radius: 10px;
-    }
-
-    /* دعم RTL للغة العربية */
-    [dir="rtl"] .me-1 {
-        margin-left: 0.25rem !important;
-        margin-right: 0 !important;
-    }
-
-    [dir="rtl"] .justify-content-end {
-        justify-content: flex-start !important;
-    }
-
-    /* تحسينات للشاشات الصغيرة */
-    @media (max-width: 768px) {
-        .btn {
-            width: 100%;
-        }
-
-        .d-flex.gap-2.justify-content-end {
-            flex-direction: column;
-        }
-    }
-</style>
 @endsection

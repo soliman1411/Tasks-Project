@@ -29,6 +29,7 @@ return [
     'search'       => 'بحث',
     'Profile'       => 'الملف الشخصي',
     'user' => 'المستخدم',
+    'updateUser' => 'تحديث المستخدم',
     'AdminPanel' => 'لوحة التحكم',
     'Dashboard' => 'الرئيسية',
     'userName' => 'اسم المستخدم',

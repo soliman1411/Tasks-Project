@@ -68,7 +68,7 @@ $users = User::whereDoesntHave('roles', function ($q) {
 
      public function trashed()
 {
-    $users = User::onlyTrashed()->get();
+    $users = User::onlyTrashed()->paginate(10);
     return view('users.trashed', compact('users'));
 }
 
