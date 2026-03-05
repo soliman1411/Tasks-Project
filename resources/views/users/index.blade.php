@@ -60,12 +60,6 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-md-4">
-            <a href="{{ route('admin.users.create') }}" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-2" style="height: 45px;">
-                <i class="fas fa-user-plus"></i>
-                {{ __('messages.CreateNewUser') }}
-            </a>
-        </div> --}}
     </div>
 
     {{-- Users Table --}}
@@ -84,6 +78,8 @@
                             <th class="px-3 py-3 text-center">{{ __('messages.id') }}</th>
                             <th class="px-3 py-3">{{ __('messages.name') }}</th>
                             <th class="px-3 py-3">{{ __('messages.email') }}</th>
+                            <th class="px-3 py-3">{{ __('messages.phone') }}</th>
+                            <th class="px-3 py-3">{{ __('messages.birthdate') }}</th>
                             <th class="px-3 py-3 text-center">{{ __('messages.tasks') }}</th>
                             <th class="px-3 py-3 text-center">{{ __('messages.actions') }}</th>
                         </tr>
@@ -109,6 +105,26 @@
                                         <i class="fas fa-envelope text-secondary me-2 opacity-50"></i>
                                         <span>{{ $user->email }}</span>
                                     </div>
+                                </td>
+                                <td class="px-3">
+                                    @if($user->phone)
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-phone text-secondary me-2 opacity-50"></i>
+                                            <span dir="ltr">{{ $user->phone }}</span>
+                                        </div>
+                                    @else
+                                        <span class="text-muted">—</span>
+                                    @endif
+                                </td>
+                                <td class="px-3">
+                                    @if($user->birthdate)
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-calendar-alt text-secondary me-2 opacity-50"></i>
+                                            <span>{{ \Carbon\Carbon::parse($user->birthdate)->format('Y/m/d') }}</span>
+                                        </div>
+                                    @else
+                                        <span class="text-muted">—</span>
+                                    @endif
                                 </td>
                                 <td class="px-3 text-center">
                                     <a href="{{ route('admin.showTasks', $user->id) }}"
@@ -148,7 +164,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-5">
+                                <td colspan="7" class="text-center py-5">
                                     <i class="fas fa-users fa-3x text-muted mb-3"></i>
                                     <h5 class="text-muted">{{ __('messages.NoUsersFound') }}</h5>
                                 </td>

@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->enum('is_done',['incomplete','complete'])->default('incomplete');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

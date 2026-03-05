@@ -1,69 +1,55 @@
 <?php
+// app/Http/Controllers/ProfileController.php
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
-use Flasher\Laravel\Facade\Flasher;
+use Illuminate\Validation\Rules;
 
 class ProfileController extends Controller
 {
     /**
-     * Show the profile edit form.
+     * Show the form for editing the profile.
      */
     public function edit()
     {
-        $user = Auth::user();
+        $user = auth()->user();
         return view('profile.edit', compact('user'));
     }
 
     /**
-     * Update the user's profile information and password.
+     * Update the profile information.
      */
     public function update(Request $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
+        
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'phone' => ['nullable', 'string', 'max:20', 'unique:users,phone,' . $user->id],
+            'birthdate' => ['nullable', 'date', 'before:today'],
+            'current_password' => ['nullable', 'required_with:new_password', 'current_password'],
+            'new_password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+        ]);
 
-        // Validate based on what's being updated
-        if ($request->has('name') || $request->has('email')) {
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            ]);
+        $updateData = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'birthdate' => $request->birthdate,
+        ];
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-
-            // If email changed, require verification again
-            if ($user->isDirty('email')) {
-                $user->email_verified_at = null;
-                // You can send verification email here if needed
-            }
-
-            $user->save();
-
-            Flasher::addSuccess(__('messages.profile_updated'));
-            return back();
+        // تحديث كلمة المرور إذا تم إدخالها
+        if ($request->filled('new_password')) {
+            $updateData['password'] = Hash::make($request->new_password);
         }
 
-        // If password fields are present
-        if ($request->has('current_password') || $request->has('new_password') || $request->has('new_password_confirmation')) {
-            $request->validate([
-                'current_password' => ['required', 'current_password'],
-                'new_password' => ['required', 'confirmed', Password::defaults()],
-            ]);
+        $user->update($updateData);
 
-            $user->password = Hash::make($request->new_password);
-            $user->save();
-
-            Flasher::addSuccess(__('messages.password_updated'));
-            return back();
-        }
-
-        Flasher::addError('No data to update');
-        return back();
+        flash()->success('تم تحديث الملف الشخصي بنجاح');
+        return redirect()->route('tasks.index');
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     function index() {
-        $usersCount = User::where('is_admin',false)->count();
+        $usersCount = User::count();
         $tasksCount = Task::count();
         $completedTasks = Task::where('is_done','complete')->count();
         $inCompletedTasks = Task::where('is_done','incomplete')->count();

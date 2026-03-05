@@ -40,8 +40,18 @@ Route::group([
     */
     Route::middleware(['auth'])->group(function () {
 
-    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+        /*
+        |--------------------------------------------------------------------------
+        | Profile Routes (للجميع - أدمن ومستخدم عادي)
+        |--------------------------------------------------------------------------
+        | هذه المسارات متاحة لكل المستخدمين المسجلين
+        */
+        Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {
+            Route::get('/', 'edit')->name('edit');
+            Route::put('/', 'update')->name('update');
+            
+        });
+
         /*
         |--------------------------------------------------------------------------
         | User Routes (للمستخدم العادي فقط)
@@ -85,6 +95,7 @@ Route::group([
             |--------------------------------------------------------------------------
             */
             Route::resource('tasks', TasksManegmentController::class)->except('show');
+
             // Soft Delete & Force Delete للمهام
             Route::prefix('tasks')->controller(TasksManegmentController::class)->group(function () {
                 Route::get('/trashed', 'trashed')->name('tasks.trashed');
@@ -98,11 +109,10 @@ Route::group([
             |--------------------------------------------------------------------------
             */
             Route::controller(AdminController::class)->group(function () {
-            Route::get('/dashboard', 'index')->name('dashboard');
-            Route::get('/notifications', 'AllNotifications')->name('notifications');
-            Route::get('/users/{user}/tasks', 'showUserTasks')->name('showTasks');
-        });
-
+                Route::get('/dashboard', 'index')->name('dashboard');
+                Route::get('/notifications', 'AllNotifications')->name('notifications');
+                Route::get('/users/{user}/tasks', 'showUserTasks')->name('showTasks');
+            });
         });
     });
 });

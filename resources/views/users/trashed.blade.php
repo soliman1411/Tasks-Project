@@ -1,12 +1,10 @@
 @extends('layouts.admin')
 
-
 @section('content')
 <div class="container-fluid px-4 py-4">
 
     {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
-
         <div>
             <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left me-1"></i>
@@ -31,6 +29,8 @@
                             <th class="px-3 py-3 text-center">{{ __('messages.id') }}</th>
                             <th class="px-3 py-3">{{ __('messages.name') }}</th>
                             <th class="px-3 py-3">{{ __('messages.email') }}</th>
+                            <th class="px-3 py-3">{{ __('messages.phone') }}</th>
+                            <th class="px-3 py-3">{{ __('messages.birthdate') }}</th>
                             <th class="px-3 py-3">{{ __('messages.deleted_at') }}</th>
                             <th class="px-3 py-3 text-center">{{ __('messages.actions') }}</th>
                         </tr>
@@ -56,6 +56,26 @@
                                         <i class="fas fa-envelope text-secondary me-2 opacity-50"></i>
                                         <span>{{ $user->email }}</span>
                                     </div>
+                                </td>
+                                <td class="px-3">
+                                    @if($user->phone)
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-phone text-secondary me-2 opacity-50"></i>
+                                            <span dir="ltr">{{ $user->phone }}</span>
+                                        </div>
+                                    @else
+                                        <span class="text-muted">—</span>
+                                    @endif
+                                </td>
+                                <td class="px-3">
+                                    @if($user->birthdate)
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-calendar-alt text-secondary me-2 opacity-50"></i>
+                                            <span>{{ \Carbon\Carbon::parse($user->birthdate)->format('Y/m/d') }}</span>
+                                        </div>
+                                    @else
+                                        <span class="text-muted">—</span>
+                                    @endif
                                 </td>
                                 <td class="px-3">
                                     <span class="badge bg-warning bg-opacity-25 text-dark px-3 py-2 rounded-pill">
@@ -101,7 +121,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-5">
+                                <td colspan="7" class="text-center py-5">
                                     <i class="fas fa-trash-alt fa-3x text-muted mb-3"></i>
                                     <h5 class="text-muted">{{ __('messages.NoDeletedUsersFound') }}</h5>
                                 </td>
@@ -114,9 +134,7 @@
     </div>
 
     {{-- Pagination --}}
-            {{ $users->withQueryString()->links() }}
+    {{ $users->withQueryString()->links() }}
 
 </div>
-
-
 @endsection

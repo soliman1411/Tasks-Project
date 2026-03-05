@@ -1,232 +1,227 @@
-@extends('layouts.app')
-
-@section('title', 'تعديل الملف الشخصي')
+@extends('layouts.app') {{-- أو admin -- حسب نوع المستخدم --}}
 
 @section('content')
-<div class="container py-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <!-- بطاقة تعديل الملف الشخصي -->
-            <div class="card shadow-lg border-0 rounded-4 mb-4" style="background: white; direction: rtl;">
-                <div class="card-header bg-primary text-white rounded-4 px-4 py-3" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    <h4 class="mb-0">
-                        <i class="fas fa-user-edit ms-2"></i>
-                        تعديل الملف الشخصي
-                    </h4>
-                </div>
-                
+<div class="container-fluid px-4 py-4">
+
+    {{-- Header بسيط --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0" style="color: #ffc107;">
+            <i class="fas fa-user-circle me-2"></i>
+            {{ __('messages.profile') ?? 'الملف الشخصي' }}
+        </h2>
+        <span class="badge bg-warning text-dark px-3 py-2">
+            <i class="fas fa-user me-1"></i>
+            {{ auth()->user()->role == 'admin' ? 'أدمن' : 'مستخدم عادي' }}
+        </span>
+    </div>
+
+    {{-- رسائل النجاح --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    {{-- Profile Form --}}
+    <div class="row">
+        <div class="col-md-8 col-lg-6 mx-auto">
+            <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body p-4">
-                    <!-- رسائل Flasher -->
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <i class="fas fa-check-circle ms-2"></i>
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
 
-                    @if($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-circle ms-2"></i>
-                            <strong>خطأ!</strong>
-                            <ul class="mb-0 mt-2">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-                    <!-- معلومات المستخدم -->
+                    {{-- صورة الملف الشخصي --}}
                     <div class="text-center mb-4">
-                        <div class="avatar-circle mx-auto mb-3" style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-user fa-3x text-white"></i>
+                        <div class="position-relative d-inline-block">
+                            @if(auth()->user()->profile_photo)
+                                <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}"
+                                     alt="Profile Photo"
+                                     class="rounded-circle img-thumbnail"
+                                     style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #ffc107;">
+                            @else
+                                <div class="rounded-circle bg-warning bg-opacity-25 d-flex align-items-center justify-content-center mx-auto"
+                                     style="width: 120px; height: 120px; border: 3px solid #ffc107;">
+                                    <i class="fas fa-user fa-3x" style="color: #ffc107;"></i>
+                                </div>
+                            @endif
+                            <label for="profile_photo_input" class="position-absolute bottom-0 end-0 mb-0 me-0"
+                                   style="cursor: pointer; background: #ffc107; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-camera text-white"></i>
+                            </label>
                         </div>
-                        <h5>{{ Auth::user()->name }}</h5>
-                        <p class="text-muted">{{ Auth::user()->email }}</p>
-                        @if(Auth::user()->email_verified_at)
-                            <span class="badge bg-success">
-                                <i class="fas fa-check-circle"></i> البريد الإلكتروني موثق
-                            </span>
-                        @else
-                            <span class="badge bg-warning text-dark">
-                                <i class="fas fa-exclamation-circle"></i> البريد الإلكتروني غير موثق
-                            </span>
-                        @endif
                     </div>
 
-                    <hr class="my-4">
+                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
 
-                    <!-- نموذج تعديل المعلومات الأساسية -->
-                    <form action="{{ route('profile.update') }}" method="POST" class="mb-5">
-                        @csrf
-                        @method('PUT')
-                        
-                        <h5 class="text-primary mb-3">
-                            <i class="fas fa-id-card ms-2"></i>
-                            معلوماتك/البيانات
-                        </h5>
-                        
-                        <!-- حقل الاسم -->
+                        {{-- حقل رفع الصورة المخفي --}}
+                        <input type="file" id="profile_photo_input" name="profile_photo" accept="image/*" class="d-none" onchange="previewImage(this)">
+
+                        {{-- User Name --}}
                         <div class="mb-3">
-                            <label for="name" class="form-label">
-                                <i class="fas fa-user text-primary ms-1"></i>
-                                الاسم الكامل
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-user text-warning me-1"></i>
+                                {{ __('messages.userName') ?? 'الاسم' }} <span class="text-danger">*</span>
                             </label>
-                            <input type="text" 
-                                   class="form-control @error('name') is-invalid @enderror" 
-                                   id="name" 
-                                   name="name" 
-                                   value="{{ old('name', Auth::user()->name) }}"
-                                   placeholder="أدخل اسمك الكامل"
-                                   style="border: 2px solid #e9ecef; border-radius: 10px; padding: 10px 15px;">
+                            <input type="text"
+                                   name="name"
+                                   class="form-control @error('name') is-invalid @enderror"
+                                   value="{{ old('name', auth()->user()->name) }}"
+                                   placeholder="أدخل الاسم الكامل"
+                                   required>
                             @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="text-danger small mt-1">
+                                    <i class="fas fa-exclamation-circle me-1"></i>
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
-                        
-                        <!-- حقل البريد الإلكتروني -->
+
+                        {{-- User Email --}}
                         <div class="mb-3">
-                            <label for="email" class="form-label">
-                                <i class="fas fa-envelope text-primary ms-1"></i>
-                                البريد الإلكتروني
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-envelope text-warning me-1"></i>
+                                {{ __('messages.email') ?? 'البريد الإلكتروني' }} <span class="text-danger">*</span>
                             </label>
-                            <input type="email" 
-                                   class="form-control @error('email') is-invalid @enderror" 
-                                   id="email" 
-                                   name="email" 
-                                   value="{{ old('email', Auth::user()->email) }}"
-                                   placeholder="أدخل بريدك الإلكتروني"
-                                   style="border: 2px solid #e9ecef; border-radius: 10px; padding: 10px 15px;">
+                            <input type="email"
+                                   name="email"
+                                   class="form-control @error('email') is-invalid @enderror"
+                                   value="{{ old('email', auth()->user()->email) }}"
+                                   placeholder="example@email.com"
+                                   required>
                             @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="text-danger small mt-1">
+                                    <i class="fas fa-exclamation-circle me-1"></i>
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
-                        
-                        <!-- زر الحفظ -->
-                        <button type="submit" name="update_type" value="profile" class="btn btn-primary px-4" style="border-radius: 10px; padding: 10px 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
-                            <i class="fas fa-save ms-2"></i>
-                            messages.save_changes
-                        </button>
-                    </form>
-                    
-                    <hr class="my-4">
-                    
-                    <!-- نموذج تغيير كلمة المرور -->
-                    <form action="{{ route('profile.update') }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        
-                        <h5 class="text-primary mb-3">
-                            <i class="fas fa-shield-alt ms-2"></i>
-                            messages.security_settings
+
+                        {{-- Phone Number --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-phone text-warning me-1"></i>
+                                {{ __('messages.phone') ?? 'رقم الهاتف' }}
+                            </label>
+                            <input type="tel"
+                                   name="phone"
+                                   class="form-control @error('phone') is-invalid @enderror"
+                                   value="{{ old('phone', auth()->user()->phone ?? '') }}"
+                                   placeholder="05xxxxxxxx"
+                                   dir="ltr">
+                            @error('phone')
+                                <div class="text-danger small mt-1">
+                                    <i class="fas fa-exclamation-circle me-1"></i>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Birth Date --}}
+                        <div class="mb-4">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-calendar-alt text-warning me-1"></i>
+                                {{ __('messages.birth_date') ?? 'تاريخ الميلاد' }}
+                            </label>
+                            <input type="date"
+                                   name="birth_date"
+                                   class="form-control @error('birth_date') is-invalid @enderror"
+                                   value="{{ old('birth_date', auth()->user()->birth_date ?? '') }}">
+                            @error('birth_date')
+                                <div class="text-danger small mt-1">
+                                    <i class="fas fa-exclamation-circle me-1"></i>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        {{-- Divider for Password Section --}}
+                        <hr class="my-4" style="border-top: 2px dashed #ffc107;">
+
+                        <h5 class="mb-3" style="color: #ffc107;">
+                            <i class="fas fa-lock me-2"></i>
+                            {{ __('messages.change_password') ?? 'تغيير كلمة المرور' }}
                         </h5>
-                        
-                        <p class="text-muted small mb-3">
-                            <i class="fas fa-info-circle"></i>
-                            messages.manage_your_password
-                        </p>
-                        
-                        <!-- كلمة المرور الحالية -->
+
+                        {{-- Current Password --}}
                         <div class="mb-3">
-                            <label for="current_password" class="form-label">
-                                <i class="fas fa-key text-primary ms-1"></i>
-                                messages.current_password
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-key text-warning me-1"></i>
+                                {{ __('messages.current_password') ?? 'كلمة المرور الحالية' }}
                             </label>
-                            <input type="password" 
-                                   class="form-control @error('current_password') is-invalid @enderror" 
-                                   id="current_password" 
+                            <input type="password"
                                    name="current_password"
-                                   placeholder="......"
-                                   style="border: 2px solid #e9ecef; border-radius: 10px; padding: 10px 15px;">
+                                   class="form-control @error('current_password') is-invalid @enderror"
+                                   placeholder="أدخل كلمة المرور الحالية">
                             @error('current_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="text-danger small mt-1">
+                                    <i class="fas fa-exclamation-circle me-1"></i>
+                                    {{ $message }}
+                                </div>
                             @enderror
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                اترك هذا الحقل فارغاً إذا لم ترد تغيير كلمة المرور
+                            </small>
                         </div>
-                        
-                        <!-- كلمة المرور الجديدة -->
+
+                        {{-- New Password --}}
                         <div class="mb-3">
-                            <label for="new_password" class="form-label">
-                                <i class="fas fa-lock text-primary ms-1"></i>
-                                messages.new_password
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-lock text-warning me-1"></i>
+                                {{ __('messages.new_password') ?? 'كلمة المرور الجديدة' }}
                             </label>
-                            <input type="password" 
-                                   class="form-control @error('new_password') is-invalid @enderror" 
-                                   id="new_password" 
+                            <input type="password"
                                    name="new_password"
-                                   placeholder="......"
-                                   style="border: 2px solid #e9ecef; border-radius: 10px; padding: 10px 15px;">
+                                   class="form-control @error('new_password') is-invalid @enderror"
+                                   placeholder="أدخل كلمة المرور الجديدة">
                             @error('new_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="text-danger small mt-1">
+                                    <i class="fas fa-exclamation-circle me-1"></i>
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
-                        
-                        <!-- تأكيد كلمة المرور -->
-                        <div class="mb-3">
-                            <label for="new_password_confirmation" class="form-label">
-                                <i class="fas fa-check-circle text-primary ms-1"></i>
-                                messages.confirm_password
+
+                        {{-- Confirm New Password --}}
+                        <div class="mb-4">
+                            <label class="form-label fw-medium">
+                                <i class="fas fa-check-circle text-warning me-1"></i>
+                                {{ __('messages.confirm_password') ?? 'تأكيد كلمة المرور الجديدة' }}
                             </label>
-                            <input type="password" 
-                                   class="form-control" 
-                                   id="new_password_confirmation" 
+                            <input type="password"
                                    name="new_password_confirmation"
-                                   placeholder="......"
-                                   style="border: 2px solid #e9ecef; border-radius: 10px; padding: 10px 15px;">
+                                   class="form-control"
+                                   placeholder="أعد إدخال كلمة المرور الجديدة">
                         </div>
-                        
-                        <!-- متطلبات كلمة المرور -->
-                        <div class="bg-light p-3 rounded-3 mb-3" style="background: #f8f9fa; border-radius: 15px;">
-                            <h6 class="mb-3">
-                                <i class="fas fa-list-check ms-2"></i>
-                                messages.password_requirements
-                            </h6>
-                            <ul class="list-unstyled mb-0">
-                                <li class="mb-2">
-                                    <i class="fas fa-circle text-primary ms-2" style="font-size: 8px;"></i>
-                                    messages.min_8_characters
-                                </li>
-                                <li class="mb-2">
-                                    <i class="fas fa-circle text-primary ms-2" style="font-size: 8px;"></i>
-                                    messages.at_least_one_uppercase
-                                </li>
-                                <li class="mb-2">
-                                    <i class="fas fa-circle text-primary ms-2" style="font-size: 8px;"></i>
-                                    حرف صغير واحد على الأقل
-                                </li>
-                                <li class="mb-2">
-                                    <i class="fas fa-circle text-primary ms-2" style="font-size: 8px;"></i>
-                                    رقم واحد على الأقل
-                                </li>
-                            </ul>
+
+                        {{-- Form Actions --}}
+                        <div class="d-flex gap-2 justify-content-end mt-4">
+                            <a href="{{ url()->previous() }}" class="btn btn-light px-4">
+                                <i class="fas fa-times me-1"></i>
+                                {{ __('messages.cancel') ?? 'إلغاء' }}
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4">
+                                <i class="fas fa-save me-1"></i>
+                                {{ __('messages.update') ?? 'تحديث البيانات' }}
+                            </button>
                         </div>
-                        
-                        <!-- زر تحديث كلمة المرور -->
-                        <button type="submit" name="update_type" value="password" class="btn btn-warning px-4" style="border-radius: 10px; padding: 10px 25px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border: none; color: white;">
-                            <i class="fas fa-sync-alt ms-2"></i>
-                            تحديث كلمة المرور
-                        </button>
                     </form>
                 </div>
             </div>
-            
-            <!-- معلومات إضافية -->
-            <div class="card shadow border-0 rounded-4" style="background: white;">
-                <div class="card-body p-4">
-                    <h6 class="text-primary mb-3">
-                        <i class="fas fa-info-circle ms-2"></i>
-                        معلومات الحساب
-                    </h6>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <small class="text-muted d-block">عضو منذ</small>
-                            <strong>{{ Auth::user()->created_at->format('Y/m/d') }}</strong>
+
+            {{-- معلومات إضافية --}}
+            <div class="card border-0 shadow-sm rounded-3 mt-3">
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-clock text-warning me-1"></i>
+                            <small class="text-muted">
+                                {{ __('messages.member_since') ?? 'عضو منذ' }}: {{ auth()->user()->created_at->format('Y/m/d') }}
+                            </small>
                         </div>
-                        <div class="col-md-6">
-                            <small class="text-muted d-block">آخر تحديث</small>
-                            <strong>{{ Auth::user()->updated_at->format('Y/m/d') }}</strong>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -234,61 +229,85 @@
     </div>
 </div>
 
+@push('scripts')
+<script>
+// معاينة الصورة قبل الرفع
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            // تحديث الصورة المعروضة
+            const profileImg = document.querySelector('img.rounded-circle');
+            const defaultIcon = document.querySelector('.rounded-circle.bg-warning');
+
+            if (profileImg) {
+                profileImg.src = e.target.result;
+            } else if (defaultIcon) {
+                // إذا كانت أيقونة افتراضية، استبدلها بالصورة
+                defaultIcon.outerHTML = `<img src="${e.target.result}"
+                                           alt="Profile Photo"
+                                           class="rounded-circle img-thumbnail"
+                                           style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #ffc107;">`;
+            }
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// رسالة تأكيد قبل المغادرة إذا تم تغيير أي حقل
+let formChanged = false;
+document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('change', function() {
+        formChanged = true;
+    });
+});
+
+window.addEventListener('beforeunload', function(e) {
+    if (formChanged) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+</script>
+@endpush
+
+@push('styles')
 <style>
-body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-    min-height: 100vh;
-}
-
-.card {
-    transition: all 0.3s ease;
-    border: none !important;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
-}
-
-.form-control:focus {
-    border-color: #667eea !important;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
-    outline: none;
-}
-
-.btn {
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* RTL Specific */
-[dir="rtl"] .ms-2 {
-    margin-left: 0;
-    margin-right: 0.5rem;
-}
-
-[dir="rtl"] .ms-1 {
-    margin-left: 0;
-    margin-right: 0.25rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
+    .form-control:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
     }
-    
-    .card-body {
-        padding: 20px !important;
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: #000;
     }
-    
-    .btn {
-        width: 100%;
+
+    .btn-warning:hover {
+        background-color: #ffb300;
+        border-color: #ffb300;
+        color: #000;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
     }
-}
+
+    .btn-light:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .badge.bg-warning {
+        font-size: 0.9rem;
+    }
 </style>
+@endpush
 @endsection

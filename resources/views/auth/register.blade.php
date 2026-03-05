@@ -48,6 +48,37 @@
             </div>
 
             <div class="form-group-auth">
+                <label for="phone" class="form-label-auth">
+                    <i class="fas fa-phone"></i>{{ __('messages.phoneNumber') }}
+                </label>
+                <input type="tel" name="phone" id="phone"
+                       class="form-control-auth @error('phone') is-invalid @enderror"
+                       value="{{ old('phone') }}"
+                       autocomplete="tel"
+                       placeholder="05xxxxxxxx">
+                @error('phone')
+                    <div class="error-message-auth">
+                        <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form-group-auth">
+                <label for="birthdate" class="form-label-auth">
+                    <i class="fas fa-calendar-alt"></i>{{ __('messages.birthdate') }}
+                </label>
+                <input type="date" name="birthdate" id="birthdate"
+                       class="form-control-auth @error('birthdate') is-invalid @enderror"
+                       value="{{ old('birthdate') }}"
+                       max="{{ date('Y-m-d') }}">
+                @error('birthdate')
+                    <div class="error-message-auth">
+                        <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form-group-auth">
                 <label for="password" class="form-label-auth">
                     <i class="fas fa-lock"></i> {{ __('messages.password') }}
                 </label>
@@ -98,6 +129,14 @@
         if (!terms.checked) {
             e.preventDefault();
             alert('يرجى الموافقة على الشروط والأحكام');
+            return false;
+        }
+        
+        // التحقق من صحة رقم الهاتف (اختياري)
+        const phone = document.getElementById('phone');
+        if (phone.value && !/^05\d{8}$/.test(phone.value.replace(/\s+/g, ''))) {
+            e.preventDefault();
+            alert('يرجى إدخال رقم هاتف سعودي صحيح (05xxxxxxxx)');
             return false;
         }
     });
