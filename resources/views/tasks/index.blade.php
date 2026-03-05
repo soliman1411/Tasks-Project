@@ -1,5 +1,4 @@
 @extends('layouts.app')
-        <link rel="stylesheet" href="{{ asset('css/component/tasks/index.css') }}">
 
 @section('content')
 <div class="container-fluid px-4 py-4">
@@ -15,7 +14,7 @@
             </div>
         </div>
 
-       
+
     </div>
 
     {{-- Search and Create Section - مصغر --}}

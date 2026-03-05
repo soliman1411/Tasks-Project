@@ -37,6 +37,7 @@ return [
     'is_Done' => 'Is_Done',
     'taskDescription' => 'Description',
     'user' => 'User',
+    'profile' => 'Profile',
     'userName' => 'User Name',
     'NoTasksFound' => 'No Tasks Found',
     'deleteTask' => 'Delete Task',

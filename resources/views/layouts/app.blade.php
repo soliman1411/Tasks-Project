@@ -9,18 +9,49 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="{{ asset('css/layouts/app.css') }}">
-
-   
+    <link rel="stylesheet" href="{{ asset('css/layouts/app.css') }}">
 </head>
 <body>
 
 <!-- النافبار -->
 <nav class="navbar navbar-expand-lg navbar-auth">
     <div class="container position-relative">
-        <!-- زر اللغة - يتم ضبط موقعه ديناميكياً -->
-        <div class="language-dropdown-auth" id="languageDropdownContainer">
-            <div class="dropdown">
+
+        <!-- حاوية القوائم المنسدلة -->
+        <div class="dropdowns-container" id="dropdownsContainer">
+            @auth
+                 <!-- القائمة المنسدلة للمستخدم (الملف الشخصي + تسجيل الخروج) -->
+            <div class="dropdown d-inline-block ms-2">
+                <button class="btn user-menu-btn-auth dropdown-toggle"
+                        type="button"
+                        id="userMenuDropdown"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="d-none d-md-inline-block ms-1">{{ Auth::user()->name ?? 'User' }}</span>
+                </button>
+                <ul class="dropdown-menu user-dropdown-menu-auth" aria-labelledby="userMenuDropdown">
+                    <li>
+                        <a class="dropdown-item user-menu-item-auth" href="{{ route('profile.edit') }}">
+                            <i class="fas fa-user me-2"></i>
+                            {{ __('messages.Profile') }}
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}" id="logout-form">
+                            @csrf
+                            <button type="submit" class="dropdown-item user-menu-item-auth text-danger">
+                                <i class="fas fa-sign-out-alt me-2"></i>
+                                {{ __('messages.logout') }}
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            @endauth
+            <!-- زر اللغة -->
+            <div class="dropdown d-inline-block">
                 <button class="btn language-btn-auth dropdown-toggle"
                         type="button"
                         id="languageDropdown"
@@ -49,7 +80,7 @@
             </div>
         </div>
 
-        <!-- اسم التطبيق - يتم ضبط موقعه ديناميكياً -->
+        <!-- اسم التطبيق -->
         <a class="navbar-brand-auth" href="{{ route('tasks.index') }}" id="navbarBrand">
             <i class="fas fa-tasks"></i>
             {{ __('messages.TaskApp')}}
@@ -72,18 +103,75 @@
     // ضبط مواقع العناصر
     function adjustNavbarPositions() {
         const isRTL = document.documentElement.dir === 'rtl';
-        const languageContainer = document.getElementById('languageDropdownContainer');
+        const dropdownsContainer = document.getElementById('dropdownsContainer');
         const navbarBrand = document.getElementById('navbarBrand');
 
-        // تطبيق أنماط CSS مباشرة
         if (isRTL) {
-            // في اللغة العربية: الشعار يمين، الزر يسار
-            languageContainer.style.cssText = 'position: absolute; left: 15px; top: 50%; transform: translateY(-50%);';
+            // في اللغة العربية:
+            // - الشعار في اليمين
+            // - مجموعة القوائم (اللغة + المستخدم) في اليسار
+            dropdownsContainer.style.cssText = 'position: absolute; left: 15px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; flex-direction: row;';
             navbarBrand.style.cssText = 'position: absolute; right: 15px; top: 50%; transform: translateY(-50%);';
+
+            // ترتيب القوائم في العربية: المستخدم ثم اللغة (من اليمين لليسار)
+            dropdownsContainer.style.flexDirection = 'row-reverse';
+
+            // تعديل المسافات بين القوائم في العربية
+            document.querySelectorAll('.dropdowns-container .dropdown').forEach((dropdown, index) => {
+                if (index === 0) {
+                    dropdown.style.marginLeft = '0';
+                    dropdown.style.marginRight = '5px';
+                } else {
+                    dropdown.style.marginRight = '0';
+                    dropdown.style.marginLeft = '0';
+                }
+            });
+
+            // تعديل اتجاه القوائم المنسدلة في RTL
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.style.cssText = 'text-align: right;';
+            });
+
+            // تعديل أيقونات القوائم في RTL
+            document.querySelectorAll('.user-menu-item-auth i, .language-item-auth i').forEach(icon => {
+                if (icon.classList.contains('me-2')) {
+                    icon.classList.remove('me-2');
+                    icon.classList.add('ms-2');
+                }
+            });
         } else {
-            // في اللغة الإنجليزية: الشعار يسار، الزر يمين
-            languageContainer.style.cssText = 'position: absolute; right: 15px; top: 50%; transform: translateY(-50%);';
+            // في اللغة الإنجليزية:
+            // - الشعار في اليسار
+            // - مجموعة القوائم (اللغة + المستخدم) في اليمين
+            dropdownsContainer.style.cssText = 'position: absolute; right: 15px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; flex-direction: row;';
             navbarBrand.style.cssText = 'position: absolute; left: 15px; top: 50%; transform: translateY(-50%);';
+
+            // ترتيب القوائم في الإنجليزية: اللغة ثم المستخدم (من اليسار لليمين)
+            dropdownsContainer.style.flexDirection = 'row';
+
+            // تعديل المسافات بين القوائم في الإنجليزية
+            document.querySelectorAll('.dropdowns-container .dropdown').forEach((dropdown, index) => {
+                if (index === 0) {
+                    dropdown.style.marginRight = '5px';
+                    dropdown.style.marginLeft = '0';
+                } else {
+                    dropdown.style.marginLeft = '0';
+                    dropdown.style.marginRight = '0';
+                }
+            });
+
+            // تعديل اتجاه القوائم المنسدلة في LTR
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.style.cssText = 'text-align: left;';
+            });
+
+            // تعديل أيقونات القوائم في LTR
+            document.querySelectorAll('.user-menu-item-auth i, .language-item-auth i').forEach(icon => {
+                if (icon.classList.contains('ms-2')) {
+                    icon.classList.remove('ms-2');
+                    icon.classList.add('me-2');
+                }
+            });
         }
     }
 
@@ -106,8 +194,8 @@
         });
     });
 
-    // إزالة تأثيرات الحركة من الأزرار
-    document.querySelectorAll('.submit-btn-auth, .nav-btn-auth, .language-btn-auth').forEach(btn => {
+    // تأثيرات الحركة للأزرار
+    document.querySelectorAll('.submit-btn-auth, .nav-btn-auth, .language-btn-auth, .user-menu-btn-auth').forEach(btn => {
         btn.addEventListener('mouseenter', function() {
             this.style.transform = 'scale(1.02)';
         });
@@ -117,10 +205,10 @@
         });
     });
 
-    // تأثير للغة المختارة
-    document.querySelectorAll('.language-item-auth').forEach(item => {
+    // تأثير للعناصر المنسدلة
+    document.querySelectorAll('.language-item-auth, .user-menu-item-auth').forEach(item => {
         item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(5px)';
+            this.style.transform = 'translateX(3px)';
         });
 
         item.addEventListener('mouseleave', function() {
@@ -132,11 +220,14 @@
     document.querySelectorAll('.language-item-auth.active').forEach(item => {
         const checkIcon = document.createElement('i');
         checkIcon.className = 'fas fa-check ms-auto';
+        checkIcon.style.fontSize = '12px';
         item.appendChild(checkIcon);
     });
 
     // التأكد من أن الصفحة متجاوبة
     window.addEventListener('orientationchange', adjustNavbarPositions);
 </script>
+
+
 </body>
 </html>

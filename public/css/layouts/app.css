@@ -387,3 +387,207 @@
             }
         }
 
+
+/* أنماط إضافية للقوائم المنسدلة */
+.dropdowns-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ===== زر الملف الشخصي ===== */
+.user-menu-btn-auth {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    border: none;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(255, 107, 107, 0.25);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.user-menu-btn-auth:hover {
+    background: linear-gradient(135deg, #FF8E53 0%, #FF6B6B 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.35);
+    color: white;
+}
+
+.user-menu-btn-auth:focus {
+    color: white;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.3);
+}
+
+.user-menu-btn-auth i {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 14px;
+}
+
+/* ===== زر اللغة ===== */
+.language-btn-auth {
+    background: linear-gradient(135deg, #4A90E2 0%, #6A5ACD 100%);
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(74, 144, 226, 0.25);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.language-btn-auth:hover {
+    background: linear-gradient(135deg, #6A5ACD 0%, #4A90E2 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.35);
+    color: white;
+}
+
+.language-btn-auth:focus {
+    color: white;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+}
+
+.language-btn-auth i {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 14px;
+}
+
+/* ===== القوائم المنسدلة (مصغرة) ===== */
+.user-dropdown-menu-auth,
+.language-dropdown-menu-auth {
+    border: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 6px 0;
+    min-width: 160px;
+    animation: slideDown 0.15s ease;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* عناصر القائمة (مصغرة) */
+.user-menu-item-auth,
+.language-item-auth {
+    padding: 8px 15px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.user-menu-item-auth:hover,
+.language-item-auth:hover {
+    background: linear-gradient(135deg, #f5f7ff 0%, #f0f2ff 100%);
+    color: #4A90E2;
+    padding-left: 20px;
+}
+
+.user-menu-item-auth i,
+.language-item-auth i {
+    font-size: 14px;
+    width: 18px;
+    color: #4A90E2;
+}
+
+/* عنصر اللغة النشط */
+.language-item-auth.active {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e6ecff 100%);
+    color: #4A90E2;
+    font-weight: 600;
+}
+
+.language-item-auth.active i {
+    color: #4A90E2;
+}
+
+/* زر تسجيل الخروج */
+.user-menu-item-auth.text-danger {
+    color: #dc3545 !important;
+}
+
+.user-menu-item-auth.text-danger:hover {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffeaea 100%);
+    color: #dc3545 !important;
+}
+
+.user-menu-item-auth.text-danger i {
+    color: #dc3545;
+    font-size: 14px;
+}
+
+/* الخط الفاصل (مصغر) */
+.dropdown-divider {
+    margin: 4px 0;
+    opacity: 0.1;
+    border-color: #4A90E2;
+}
+
+/* تحسين المظهر على الأجهزة المحمولة */
+@media (max-width: 768px) {
+    .user-menu-btn-auth span {
+        display: none;
+    }
+
+    .user-menu-btn-auth,
+    .language-btn-auth {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .dropdowns-container {
+        gap: 3px !important;
+    }
+
+    .user-dropdown-menu-auth,
+    .language-dropdown-menu-auth {
+        min-width: 140px;
+        font-size: 12px;
+    }
+
+    .user-menu-item-auth,
+    .language-item-auth {
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+}
+
+/* أنماط خاصة باللغة العربية */
+[dir="rtl"] .user-menu-btn-auth i,
+[dir="rtl"] .language-btn-auth i {
+    margin-left: 5px;
+    margin-right: 0;
+}
+
+[dir="rtl"] .user-menu-item-auth,
+[dir="rtl"] .language-item-auth {
+    text-align: right;
+}
+
+[dir="rtl"] .user-menu-item-auth i,
+[dir="rtl"] .language-item-auth i {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+[dir="rtl"] .user-menu-item-auth:hover,
+[dir="rtl"] .language-item-auth:hover {
+    padding-right: 20px;
+    padding-left: 15px;
+}
