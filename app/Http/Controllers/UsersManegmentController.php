@@ -51,7 +51,7 @@ class UsersManegmentController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        flash()->success('User created successfully.');
+        flash()->success(__('messages.user_created'));
         return redirect()->route('admin.users.index');
     }
 
@@ -64,7 +64,7 @@ class UsersManegmentController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $id],
@@ -86,14 +86,14 @@ class UsersManegmentController extends Controller
 
         User::where('id', $id)->update($updateData);
 
-        flash()->success('User updated successfully.');
+        flash()->info(__('messages.user_updated'));
         return redirect()->route('admin.users.index');
     }
 
     public function destroy($id)
     {
         User::destroy($id);
-        flash()->warning('User moved to trash.');
+        flash()->error(__('messages.user_deleted'));
         return redirect()->route('admin.users.index');
     }
 
@@ -111,7 +111,7 @@ class UsersManegmentController extends Controller
     {
         $user = User::withTrashed()->findOrFail($id);
         $user->restore();
-        flash()->info('User restored successfully.');
+        flash()->info(__('messages.user_restored'));
         return redirect()->route('admin.users.index');
     }
 
@@ -119,7 +119,7 @@ class UsersManegmentController extends Controller
     {
         $user = User::withTrashed()->findOrFail($id);
         $user->forceDelete();
-        flash()->warning('User permanently deleted.');
+        flash()->error(__('messages.user_forcedeleted'));
         return redirect()->route('admin.users.index');
     }
 }

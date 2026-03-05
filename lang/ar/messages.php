@@ -14,6 +14,8 @@ return [
     'passwordConfirmation'     => ' تأكيد كلمة المرور',
     'id'           => 'الرقم',
     'name'         => 'الاسم',
+    'phone'         => 'الهاتف',
+    'birthdate'     => 'تاريخ الميلاد',
     'tasks'        => 'المهام',
     'actions'      => 'الإجراءات',
     'edit'         => 'تعديل',
@@ -73,6 +75,17 @@ return [
     'I agree to the terms and conditions' => 'أوافق على الشروط والأحكام',
     'Welcome back! Please log in to your account.' => 'مرحباً بعودتك! يرجى تسجيل الدخول لحسابك
 ',
+// رسائل النجاح
+    'task_created' => '✅ تم إنشاء المهمة بنجاح',
+    'task_updated' => '📝 تم تحديث المهمة بنجاح',
+    'task_deleted' => '🗑️ تم حذف المهمة بنجاح',
+    'task_forcedeleted' => '🗑️ تم حذف المهمة بشكل نهائي بنجاح',
+    'task_restored' => '🔄 تم استعادة المهمة بنجاح',
+     'user_created' => '✅ تم إنشاء المستخدم بنجاح',
+    'user_updated' => '📝 تم تحديث المستخدم بنجاح',
+    'user_deleted' => '🗑️ تم حذف المستخدم بنجاح',
+    'user_forcedeleted' => '🗑️ تم حذف المستخدم بشكل نهائي بنجاح',
+    'user_restored' => '🔄 تم استعادة المستخدم بنجاح',
 ];
 
 

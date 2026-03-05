@@ -58,7 +58,7 @@ class TasksController extends Controller
 ]);
     $admin = User::findOrFail(1);
     $admin->notify(new UserCreatedTask(Auth::user(),$task));
-            flash()->success('Task created.');
+            flash()->success(__('messages.task_created'));
     return redirect()->route('tasks.index');
 }
 
@@ -94,7 +94,7 @@ class TasksController extends Controller
     $admin = User::findOrFail(1);
 
    $admin->notify(new UserUpdatedTask(Auth::user(),$task));
-            flash()->warning('Task updated.');
+            flash()->warning(__('messages.task_updated'));
         return redirect()->route('tasks.index');
 
     }
@@ -109,7 +109,7 @@ class TasksController extends Controller
 
     $admin = User::findOrFail(1);
     $admin->notify(new UserDeletedTask(Auth::user(),$task));
-            flash()->warning('Task deleted.');
+            flash()->success(__('messages.task_deleted'));
     return redirect()->route('tasks.index');
 }
 

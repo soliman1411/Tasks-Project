@@ -53,7 +53,7 @@ class TasksManegmentController extends Controller
     'is_done' => $request->is_done,
     'user_id' => $request->user_id,
 ]);
-    flash()->success('Task created.');
+    flash()->success(__('messages.task_created'));
             return redirect()->route('admin.tasks.index');
 }
 
@@ -85,7 +85,7 @@ class TasksManegmentController extends Controller
             'is_done'=>$request->is_done,
             'user_id' => $request->user_id,
         ]);
-            flash()->success('Task updated.');
+            flash()->warning(__('messages.task_updated'));
 
             return redirect()->route('admin.tasks.index');
 
@@ -98,7 +98,7 @@ class TasksManegmentController extends Controller
 {
     $task = Task::destroy($id);
 
-    flash()->warning('Task Deleted.');
+            flash()->error(__('messages.task_deleted'));
 
             return redirect()->route('admin.tasks.index');
 }
@@ -112,7 +112,7 @@ class TasksManegmentController extends Controller
 {
     $task = Task::withTrashed()->findOrFail($id);
     $task->restore();
-    flash()->info('Task restored.');
+            flash()->info(__('messages.task_restored'));
 
             return redirect()->route('admin.tasks.index');
 }
@@ -121,7 +121,7 @@ class TasksManegmentController extends Controller
 {
     $task = Task::withTrashed()->findOrFail($id);
     $task->forceDelete();
-    flash()->warning('Task forceDeleted.');
+    flash()->error(__('messages.task_forcedeleted'));
 
             return redirect()->route('admin.tasks.index');
 }

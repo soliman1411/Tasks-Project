@@ -14,6 +14,8 @@ return [
     'passwordConfirmation' => 'Confirm Password',
     'id'           => 'ID',
     'name'         => 'Name',
+    'phone'         => 'phone',
+    'birthdate'     => 'birthdate',
     'tasks'        => 'Tasks',
     'actions'      => 'Actions',
     'edit'         => 'Edit',
@@ -73,6 +75,16 @@ return [
     'I agree to the terms and conditions' => 'I agree to the terms and conditions',
     'Welcome back! Please log in to your account.' =>'Welcome back! Please log in to your account.',
     'Join us and start organizing your tasks with ease' => 'Join us and start organizing your tasks with ease',
+    // Success Messages
+    'task_created' => '✅ Task created successfully',
+    'task_updated' => '📝 Task updated successfully',
+    'task_deleted' => '🗑️ Task deleted successfully',
+    'task_forcedeleted' => '🗑️ Task force deleted successfully',
+    'task_restored' => '🔄 Task restored successfully',
+      'user_created' => '✅ User created successfully',
+    'user_updated' => '📝 User updated successfully',
+    'user_deleted' => '🗑️ User deleted successfully',
+    'user_restored' => '🔄 User restored successfully',
 
 ];
 
