@@ -49,7 +49,7 @@ Route::group([
         Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {
             Route::get('/', 'edit')->name('edit');
             Route::put('/', 'update')->name('update');
-            
+
         });
 
         /*
@@ -114,5 +114,9 @@ Route::group([
                 Route::get('/users/{user}/tasks', 'showUserTasks')->name('showTasks');
             });
         });
+    });
+     Route::fallback(function () {
+
+        return view('errors_404');
     });
 });

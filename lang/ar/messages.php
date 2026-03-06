@@ -68,6 +68,7 @@ return [
     'deleteUser' => ' المستخدمون المحذوفون',
     'noTasksOfUser' => 'لا يوجد مهام للمستخدم',
     'TaskApp' => 'تطبيق المهام',
+    'Page not found' => 'الصفحة غير موجودة',
     'RememberMy' => 'تذكرني',
     'Dont have an account?' => 'ليس لديك حساب؟',
     'Do you already have an account?' => 'لديك حساب بالفعل؟',

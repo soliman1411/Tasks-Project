@@ -31,6 +31,7 @@ return [
     'Dashboard' => 'Dashboard',
     'NoUsersFound' => 'No Users Found',
     'createdAt' => 'createdAt',
+    'Page not found' => 'Page not found',
     'deleted_at' => 'deleted_at',
     'NoDeletedUsersFound' => 'No Deleted Users Found',
     'NoDeletedTasksFound' => 'No Deleted Tasks Found',
