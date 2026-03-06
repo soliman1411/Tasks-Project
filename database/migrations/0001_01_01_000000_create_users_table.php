@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->softDeletes();
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->string('phone','10');
             $table->timestamps();
         });

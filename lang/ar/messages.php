@@ -11,6 +11,8 @@ return [
     'fullName'     => 'الاسم الكامل',
     'email'        => 'البريد الإلكتروني',
     'password'     => 'كلمة المرور',
+    'change password'     => ' تغيير كلمة المرور',
+    'new password'     =>  'كلمة المرور الجديدة',
     'passwordConfirmation'     => ' تأكيد كلمة المرور',
     'id'           => 'الرقم',
     'name'         => 'الاسم',

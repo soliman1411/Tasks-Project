@@ -11,6 +11,8 @@ return [
     'fullName'     => 'Full Name',
     'email'        => 'Email',
     'password'     => 'Password',
+    'change password'     => 'Change Password',
+    'new password'     => 'New Password',
     'passwordConfirmation' => 'Confirm Password',
     'id'           => 'ID',
     'name'         => 'Name',
