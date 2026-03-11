@@ -19,11 +19,11 @@ class UsersManegmentController extends Controller
             })
             ->whereDoesntHave('roles', function ($q) {
                 $q->where('name', 'admin');
-            })->paginate(10);
+            })->paginate(5);
         } else {
             $users = User::whereDoesntHave('roles', function ($q) {
                 $q->where('name', 'admin');
-            })->paginate(10);
+            })->paginate(5);
         }
         return view('users.index', compact('users'));
     }
@@ -103,7 +103,7 @@ class UsersManegmentController extends Controller
             ->whereDoesntHave('roles', function ($q) {
                 $q->where('name', 'admin');
             })
-            ->paginate(10);
+            ->paginate(5);
         return view('users.trashed', compact('users'));
     }
 

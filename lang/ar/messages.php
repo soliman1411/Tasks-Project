@@ -83,7 +83,6 @@ return [
     'I agree to the terms and conditions' => 'أوافق على الشروط والأحكام',
     'Welcome back! Please log in to your account.' => 'مرحباً بعودتك! يرجى تسجيل الدخول لحسابك
 ',
-// رسائل النجاح
     'task_created' => '✅ تم إنشاء المهمة بنجاح',
     'task_updated' => '📝 تم تحديث المهمة بنجاح',
     'task_deleted' => '🗑️ تم حذف المهمة بنجاح',

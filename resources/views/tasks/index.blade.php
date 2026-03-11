@@ -149,7 +149,7 @@
     </div>
 
     {{-- Pagination بسيط ومنسق وجميل --}}
-{{ $tasks->withQueryString()->links() }}
+{{ $tasks->links() }}
 
 </div>
 

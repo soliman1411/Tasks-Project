@@ -134,7 +134,7 @@
     </div>
 
     {{-- Pagination --}}
-    {{ $users->withQueryString()->links() }}
+    {{ $users->links() }}
 
 </div>
 @endsection

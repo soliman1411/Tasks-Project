@@ -152,7 +152,7 @@
 
     {{-- Pagination --}}
     <div class="mt-4">
-        {{ $tasks->withQueryString()->links() }}
+    {{ $tasks->links() }}
     </div>
 </div>
 @endsection

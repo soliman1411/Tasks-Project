@@ -113,7 +113,7 @@
         </div>
     </div>
 
-            {{ $tasks->withQueryString()->links() }}
+            {{ $tasks->links() }}
 
 </div>
 

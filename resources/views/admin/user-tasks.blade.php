@@ -23,7 +23,7 @@
             <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary me-2">
                 <i class="fas fa-arrow-left me-1"></i>{{ __('messages.cancel') }}
             </a>
-            
+
         </div>
     </div>
 
@@ -132,7 +132,7 @@
             {{ __('messages.of') }} {{ $tasks->total() }} {{ __('messages.tasks') }}
         </div>
         <div>
-            {{ $tasks->withQueryString()->links() }}
+            {{ $tasks->links() }}
         </div>
     </div>
 </div>
