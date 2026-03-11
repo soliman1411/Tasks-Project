@@ -92,7 +92,7 @@
                                             <i class="fas fa-user text-info"></i>
                                         </div>
                                         <div>
-                                            <span class="fw-semibold">{{ $task->user->name }}</span>
+                                            <span class="fw-semibold">{{ $task->user->name  ?? 'User deleted'}}</span>
                                         </div>
                                     </div>
                                 </td>

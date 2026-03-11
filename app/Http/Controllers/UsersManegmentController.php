@@ -119,6 +119,7 @@ class UsersManegmentController extends Controller
     {
         $user = User::withTrashed()->findOrFail($id);
         $user->forceDelete();
+         $user->tasks()->delete();
         flash()->error(__('messages.user_forcedeleted'));
         return redirect()->route('admin.users.index');
     }

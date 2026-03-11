@@ -56,6 +56,7 @@ return [
     'tasksManegment' => 'إدارة المهام',
     'notifications' => 'الاشعارات',
     'notification'  => 'الإشعار',
+    'profileupdated' => 'The profile has been updated',
     'message'        => 'الرسالة',
     'read'        => 'مقروء',
     'unread'        => 'غير مقروء',

@@ -13,18 +13,7 @@
     </div>
 
     <div class="auth-body-main">
-        @if(session('error'))
-            <div class="alert alert-danger alert-auth">
-                <i class="fas fa-exclamation-circle"></i>
-                <div>
-                    <strong>خطأ!</strong><br>
-                    {{ session('error') }}
-                </div>
-            </div>
-        @endif
-
-
-
+        
         <form action="{{ route('login') }}" method="POST" id="loginForm">
             @csrf
 

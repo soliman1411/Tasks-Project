@@ -63,6 +63,7 @@ return [
     'usersManegment' => 'Users Manegment',
     'tasksManegment' => 'Tasks Manegment',
     'notifications' => 'Notifications',
+    'profileupdated' => 'The profile has been updated',
     'noNotifications' => 'No Notifications',
     'Show All Notifications' => 'Show All Notifications',
     'totalUsers' => 'Total Users',
@@ -92,8 +93,9 @@ return [
     'task_restored' => '🔄 Task restored successfully',
       'user_created' => '✅ User created successfully',
     'user_updated' => '📝 User updated successfully',
-    'user_deleted' => '🗑️ User deleted successfully',
+    'user_deleted' => '🗑️ User soft deleted successfully',
     'user_restored' => '🔄 User restored successfully',
+    'user_forcedeleted' => '🗑️ User force deleted successfully',
 
 ];
 

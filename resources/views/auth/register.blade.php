@@ -49,13 +49,13 @@
 
             <div class="form-group-auth">
                 <label for="phone" class="form-label-auth">
-                    <i class="fas fa-phone"></i>{{ __('messages.phoneNumber') }}
+                    <i class="fas fa-phone"></i>{{ __('messages.phone') }}
                 </label>
                 <input type="tel" name="phone" id="phone"
                        class="form-control-auth @error('phone') is-invalid @enderror"
                        value="{{ old('phone') }}"
                        autocomplete="tel"
-                       placeholder="05xxxxxxxx">
+                       >
                 @error('phone')
                     <div class="error-message-auth">
                         <i class="fas fa-exclamation-circle"></i> {{ $message }}
@@ -131,7 +131,7 @@
             alert('يرجى الموافقة على الشروط والأحكام');
             return false;
         }
-        
+
         // التحقق من صحة رقم الهاتف (اختياري)
         const phone = document.getElementById('phone');
         if (phone.value && !/^05\d{8}$/.test(phone.value.replace(/\s+/g, ''))) {

@@ -21,17 +21,21 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
+             'phone' => 'required|string|max:20|unique:users,phone',
+             'birthdate' => 'required|date|before:today',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'phone' => $request->phone,
+            'birthdate' => $request->birthdate,
         ]);
 
         $user->assignRole('user');
 
-        return redirect()->route('login.form')->with('success', 'تم التسجيل بنجاح، الرجاء تسجيل الدخول');
+        return redirect()->route('login.form');
     }
 
     // عرض نموذج تسجيل الدخول
@@ -54,18 +58,16 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if ($user->hasRole('admin')) {
-                return redirect()->route('admin.dashboard')->with('success', 'مرحباً بك في لوحة التحكم');
+                return redirect()->route('admin.dashboard');
             }
 
             if (!$user->hasRole('admin')) {
-            return redirect()->route('tasks.index')->with('success', 'مرحباً بك');
+            return redirect()->route('tasks.index');
             }
 
         }
 
-        return back()->withErrors([
-            'email' => 'بيانات الدخول غير صحيحة.',
-        ])->withInput();
+        return back();
     }
 
     // تسجيل الخروج

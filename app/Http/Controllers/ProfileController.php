@@ -25,7 +25,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
-        
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
@@ -49,7 +49,7 @@ class ProfileController extends Controller
 
         $user->update($updateData);
 
-        flash()->success('تم تحديث الملف الشخصي بنجاح');
+            flash()->success(__('messages.profileupdated'));
         return redirect()->route('tasks.index');
     }
 }
