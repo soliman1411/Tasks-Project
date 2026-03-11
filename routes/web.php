@@ -73,6 +73,7 @@ Route::group([
             Route::controller(AdminController::class)->group(function () {
                 Route::get('/dashboard', 'index')->name('dashboard');
                 Route::get('/notifications', 'allNotifications')->name('notifications');
+                Route::get('/notification/{id}', [AdminController::class, 'showNotification'])->name('notification.show');
             });
 
             /*

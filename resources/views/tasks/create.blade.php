@@ -1,5 +1,4 @@
 @extends('layouts.app')
-        <link rel="stylesheet" href="{{ asset('css/component/tasks/create.css') }}">
 
 @section('content')
 <div class="container py-4">

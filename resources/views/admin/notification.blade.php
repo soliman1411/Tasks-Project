@@ -16,7 +16,10 @@
                 <li class="list-group-item d-flex justify-content-between align-items-start bg-light">
                     <div class="ms-2 me-auto">
                         <div class="fw-bold"></div>
-                        {{ $notification->data['message'] }}
+                        <a href="{{ route('admin.notification.show', $notification->id) }}"
+                        class="btn btn-sm btn">
+                       {{ $notification->data['message'] }}
+                      </a>
                     </div>
                     <span class="badge bg-danger rounded-pill">{{$notification->created_at->diffForHumans() }}</span>
                 </li>

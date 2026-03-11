@@ -86,9 +86,9 @@
                         <li><hr class="dropdown-divider"></li>
 
                         <!-- عناصر الإشعارات -->
-                        @forelse (Auth::user()->unreadNotifications()->latest()->take(5)->get() as $notification)
+                        @forelse (Auth::user()->notifications()->latest()->take(5)->get() as $notification)
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.notification.show', $notification->id) }}">
                                     <span class="me-2">🔔</span>
                                     <span>{{ Str::limit($notification->data['message'] ?? '', 35, '...') }}</span>
                                 </a>

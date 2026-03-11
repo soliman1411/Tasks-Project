@@ -32,7 +32,16 @@ class AdminController extends Controller
 }
 
 
+    public function showNotification($id)
+    {
+        $notification = Auth::user()->notifications()->findOrFail($id);
 
+        if (is_null($notification->read_at)) {
+            $notification->markAsRead();
+        }
+
+        return view('admin.oneNotification', compact('notification'));
+    }
 
 
 

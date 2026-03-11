@@ -18,7 +18,13 @@ return [
     'name'         => 'Name',
     'phone'         => 'phone',
     'birthdate'     => 'birthdate',
+
+
     'tasks'        => 'Tasks',
+    'notification'  => 'Notification',
+    'message'        => 'Message',
+    'read'        => 'Read',
+    'unread'        => 'UnRead',
     'actions'      => 'Actions',
     'edit'         => 'Edit',
     'delete'       => 'Delete',
